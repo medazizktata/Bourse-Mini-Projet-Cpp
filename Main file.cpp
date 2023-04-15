@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <cstring>
 using namespace std;
 class Date {
     private:
@@ -8,6 +7,7 @@ class Date {
         int mois;
         int annee;
     public:
+        Date();
         Date(int j, int m, int a);
         int get_jour();
         int get_mois();
@@ -21,9 +21,9 @@ class Date {
         Date operator ==(const Date& d);
 };
 Date::Date(int j, int m, int a){
-    int jour=j;
-    int mois= m;
-    int annee=a;
+    jour=j;
+    mois= m;
+    annee=a;
 }
 int Date::get_jour(){
     return jour;
@@ -39,8 +39,16 @@ ostream& operator<<(ostream& os, const Date& d){
     return os;
 }
 istream& operator>>(istream& is, Date& d){
+    string input;
+    getline(is, input);
     char slash;
     is >> d.jour >> slash >> d.mois >> slash >> d.annee;
     return is;
 }
-
+int main(){
+    Date d;
+    cout<<"Entrer une date: (jj/mm/aaaa)";
+    cin>>d;
+    cout<<"La date est:"<<d;
+    return 0;
+}
