@@ -19,7 +19,7 @@ class Date {
         Date decrementer(Date &d);
         friend ostream& operator<<(ostream& os, const Date& d);
         friend istream& operator>>(istream& os, Date& d);
-        bool operator<(const Date& d);
+        bool operator<(const Date& d) const;
         Date operator+(const Date& d);
         bool operator==(const Date& d);
 };
@@ -48,6 +48,17 @@ istream& operator>>(istream& is, Date& d){
 }
 bool Date::operator==(const Date& d){
     return ((jour== d.jour) && (mois==d.mois) && (annee==d.annee));
+}
+bool Date::operator<(const Date& d)const{
+    if(annee!=d.annee){
+        return annee<d.annee;
+    }
+    else if (mois!=d.mois){
+        return mois<d.mois;
+    }
+    else {
+        return jour<d.jour;
+    }
 }
 bool Date::cntrl_jour(int j) const{
    return (j<=31 && j>0);
