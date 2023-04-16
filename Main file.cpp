@@ -66,6 +66,7 @@ bool Date::operator<(const Date& d)const{
         return jour<d.jour;
     }
 }
+
 bool Date::cntrl_jour(int j) const{
    return (j<=31 && j>0);
 }
@@ -289,12 +290,25 @@ int main(){
     int i;
     Date d1(1,3,2022); //date valide
     string s1="date valide";
-    /*Date d2(32,5,2018); //jour invalide
+    Date d2(1,3,2022); //jour invalide
     string s2="jour invalide";
-    Date d3(4,15,2006); //mois invalide
+    Date d;
+    
+    if (d1==d2){
+        cout<<d1<<" est equivalente a "<<d2<<endl;
+    } else {
+        cout<<d1<<" et "<<d2<<" ne sont pas equivalentes"<<endl;
+        if (d1<d2){
+            cout<<d1<<"est plus ancienne que"<<d2<<endl;
+        }
+        else {
+            cout<<d1<<"est plus recente que"<<d2<<endl;
+        }
+    }
+    /*Date d3(4,15,2006); //mois invalide
     string s3="mois invalide";
     Date d4(9,8,3090); //annee invalide
-    string s4="annee invalide";*/
+    string s4="annee invalide";
     Date d5(9,5,2021); //(mois<8)jour++
     string s5="(mois<8)jour++";
     Date d5_1(7,9,2012); //(mois>8)jour++
@@ -322,7 +336,7 @@ int main(){
     tableau.push_back(d1);
     /*tableau.push_back(d2);
     tableau.push_back(d3);
-    tableau.push_back(d4);*/
+    tableau.push_back(d4);
     tableau.push_back(d5);
     tableau.push_back(d5_1);
     tableau.push_back(d6);
@@ -338,7 +352,7 @@ int main(){
     description.push_back(s1);
     /*description.push_back(s2);
     description.push_back(s3);
-    description.push_back(s4);*/
+    description.push_back(s4);
     description.push_back(s5);
     description.push_back(s5_1);
     description.push_back(s6);
@@ -360,10 +374,10 @@ int main(){
         tableau[i]=decrementer(tableau[i]);
         cout<<"La date decrementee est:"<<tableau[i]<<endl;
         cout<<'\n'<<endl;
-    }
+    }*/
 
-    /*cout<<"Le jour est:"<<d1.get_jour()<<endl;
+    cout<<"Le jour est:"<<d1.get_jour()<<endl;
     cout<<"Le mois est:"<<d1.get_mois()<<endl;
-    cout<<"L'annee est:"<<d1.get_annee()<<endl;*/
+    cout<<"L'annee est:"<<d1.get_annee()<<endl;
     return 0;
 }
