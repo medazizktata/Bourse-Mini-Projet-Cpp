@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 class Date {
     private:
@@ -25,6 +26,8 @@ class Date {
         bool operator<(const Date& d) const;
         Date operator+(const Date& d);
         bool operator==(const Date& d);
+        void saisie_date(const Date d);
+
 };
 Date::Date(int j=0, int m=0, int a=0){
     jour=j;
@@ -109,6 +112,77 @@ bool annee_bissextile(int annee) {
     }
 }
 
+Date decrementer(Date &d){
+    int jour=d.get_jour();
+    int mois=d.get_mois();
+    int annee=d.get_annee();
+    int fev=28;
+    if (mois<8){
+        if ((mois-1)%2==0){
+            if ((mois-1)!=2){
+                if(jour>1){
+                    d.set_jour(jour--);
+                }
+                else {
+                    d.set_jour(30);
+                    d.set_mois(mois--);
+                }
+            }
+            if ((mois-1)==2){
+                if (annee_bissextile(annee)){
+                    fev=29;
+                }
+                if(jour>1){
+                    d.set_jour(jour--);
+                }
+                else {
+                    d.set_jour(fev);
+                    d.set_mois(mois--);
+                }
+            }
+        }
+        else {
+            if(jour>1){
+                    d.set_jour(jour--);
+                }
+                else {
+                    d.set_jour(31);
+                    d.set_mois(mois--);
+                }
+        }
+    }
+    else if ((mois-1)!=0) {
+        if (mois%2==0){
+            if(jour>1){
+                d.set_jour(jour--);
+            }
+            else {
+                d.set_jour(31);
+                d.set_mois(mois--);
+            }
+        }
+        else {
+            if(jour>1){
+                d.set_jour(jour--);
+            }
+            else {
+                d.set_jour(30);
+                d.set_mois(mois--);
+            }
+        }
+    }
+    if((mois-1)==0) {
+        if(jour>1){
+            d.set_jour(jour--);
+        }
+        else {
+            d.set_jour(31);
+            d.set_mois(12);
+            d.set_annee(annee--);
+        }
+    }
+    return d;
+}
 Date incrementer(Date &d){
     int jour=d.get_jour();
     int mois=d.get_mois();
@@ -118,11 +192,11 @@ Date incrementer(Date &d){
         if (mois%2==0){
             if (mois!=2){
                 if(jour<30){
-                    d.set_jour(jour++);
+                    ++jour;
                 }
                 else {
-                    d.set_jour(1);
-                    d.set_mois(mois++);
+                    jour=1;
+                    ++mois;
                 }
             }
             if (mois==2){
@@ -130,57 +204,60 @@ Date incrementer(Date &d){
                     fev=29;
                 }
                 if(jour<fev){
-                    d.set_jour(jour++);
+                    ++jour;
                 }
                 else {
-                    d.set_jour(1);
-                    d.set_mois(mois++);
+                    jour=1;
+                    ++mois;
                 }
             }
         }
         else {
             if(jour<31){
-                    d.set_jour(jour++);
+                    ++jour;
                 }
                 else {
-                    d.set_jour(1);
-                    d.set_mois(mois++);
+                    jour=1;
+                    ++mois;
                 }
         }
     }
-    else if (mois!=12) {
+    if ((mois>=8) && (mois<12)) {
         if (mois%2==0){
             if(jour<31){
-                d.set_jour(jour++);
+                ++jour;
             }
             else {
-                d.set_jour(1);
-                d.set_mois(mois++);
+                jour=1;
+                ++mois;
             }
         }
         else {
-            if(jour<30){
-                d.set_jour(jour++);
+            if(jour==30){
+                ++jour;
             }
-            else {
-                d.set_jour(1);
-                d.set_mois(mois++);
+            else{
+                jour=1;
+                ++mois;
             }
         }
     }
-    else {
+    if (mois==12) {
         if(jour<31){
-            d.set_jour(jour++);
+            ++jour;
         }
         else {
-            d.set_jour(1);
-            d.set_mois(mois++);
-            d.set_annee(annee++);
+           jour=1;
+            mois=1;
+            ++annee;
         }
     }
+    d.set_jour(jour);
+    d.set_mois(mois);
+    d.set_annee(annee);
+    return d;
 }
-int main(){
-    Date d;
+void Date::saisie_date(Date d){
     bool date_valide=false;
     int c=0;
     cout<<"Entrer une date sous le format suivant (jj/mm/aaaa) : ";
@@ -198,9 +275,90 @@ int main(){
     if (c!=0){
         cout<<"Format Valide"<<endl;
     }
-    cout<<"Le jour est:"<<d.get_jour()<<endl;
-    cout<<"Le mois est:"<<d.get_mois()<<endl;
-    cout<<"L'annee est:"<<d.get_annee()<<endl;
-    cout<<"La date est:"<<d;
+    
+}
+int main(){
+    vector <Date> tableau;
+    vector <string> description;
+    int i;
+    Date d1(1,3,2022); //date valide
+    string s1="date valide";
+    /*Date d2(32,5,2018); //jour invalide
+    string s2="jour invalide";
+    Date d3(4,15,2006); //mois invalide
+    string s3="mois invalide";
+    Date d4(9,8,3090); //annee invalide
+    string s4="annee invalide";*/
+    Date d5(9,5,2021); //(mois<8)jour++
+    string s5="(mois<8)jour++";
+    Date d5_1(7,9,2012); //(mois>8)jour++
+    string s5_1="(mois>8)jour++";
+    Date d6(31,3,2014); //(mois<8)mois31++
+    string s6="(mois<8)mois31++";
+    Date d6_1(31,10,2023); //(mois<8)mois31++
+    string s6_1="(mois<8)mois31++";
+    Date d7(30,6,2016); //(mois<8)mois30++
+    string s7="(mois<8)mois30++";
+    Date d7_1(30,11,2011); //(mois>8)mois30++
+    string s7_1="(mois>8)mois30++";
+    Date d8(30,8,2010); //aout++
+    string s8="aout1++";
+    Date d8_1(31,8,2010); //aout++
+    string s8_1="aout2++";
+    Date d9(31,12,2017); //annee++
+    string s9="annee++";
+    Date d10(28,2,2000); //anneebisexitile1ON
+    string s10="anneebisexitile1ON";
+    Date d10_1(29,2,2020); //anneebisexitile2ON
+    string s10_1="anneebisexitile2ON";
+    Date d11(28,2,2019); //anneebisexitileOFF
+    string s11="anneebisexitileOFF";
+    tableau.push_back(d1);
+    /*tableau.push_back(d2);
+    tableau.push_back(d3);
+    tableau.push_back(d4);*/
+    tableau.push_back(d5);
+    tableau.push_back(d5_1);
+    tableau.push_back(d6);
+    tableau.push_back(d6_1);
+    tableau.push_back(d7);
+    tableau.push_back(d7_1);
+    tableau.push_back(d8);
+    tableau.push_back(d8_1);
+    tableau.push_back(d9);
+    tableau.push_back(d10);
+    tableau.push_back(d10_1);
+    tableau.push_back(d11);
+    description.push_back(s1);
+    /*description.push_back(s2);
+    description.push_back(s3);
+    description.push_back(s4);*/
+    description.push_back(s5);
+    description.push_back(s5_1);
+    description.push_back(s6);
+    description.push_back(s6_1);
+    description.push_back(s7);
+    description.push_back(s7_1);
+    description.push_back(s8);
+    description.push_back(s8_1);
+    description.push_back(s9);
+    description.push_back(s10);
+    description.push_back(s10_1);
+    description.push_back(s11);
+
+    for (i=0; i<13; i++){
+        cout<<"La date avant modif est:"<<tableau[i]<<endl;
+        cout<<"Incrementation: "<<description[i]<<": "<<endl;
+        tableau[i]=incrementer(tableau[i]);
+        cout<<"La date incrementee est:"<<tableau[i]<<endl;
+        cout<<"Decrementation: "<<description[i]<<": "<<endl;
+        tableau[i]=decrementer(tableau[i]);
+        cout<<"La date decrementee est:"<<tableau[i]<<endl;
+        cout<<'\n'<<endl;
+    }
+
+    /*cout<<"Le jour est:"<<d1.get_jour()<<endl;
+    cout<<"Le mois est:"<<d1.get_mois()<<endl;
+    cout<<"L'annee est:"<<d1.get_annee()<<endl;*/
     return 0;
 }
