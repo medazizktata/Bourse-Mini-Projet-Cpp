@@ -1,0 +1,97 @@
+vector <Date> tableau;
+    vector <string> description;
+    int i;
+    Date d1(27,2,2020); //date valide
+    string s1="date valide";
+    Date d2(12,0,2022); //jour invalide
+    string s2="jour invalide";
+    cout<<"La date incrementee est:"<<incrementer(d1)<<endl;
+    cout<<"La date incrementee est:"<<incrementer(d2)<<endl;
+    if (d1==d2){
+        cout<<d1<<" est equivalente a "<<d2<<endl;
+    } else {
+        cout<<d1<<" et "<<d2<<" ne sont pas equivalentes"<<endl;
+        if (d1<d2){
+            cout<<d1<<"est plus ancienne que"<<d2<<endl;
+        }
+        else {
+            cout<<d1<<"est plus recente que"<<d2<<endl;
+        }
+    }
+    Date df;
+    df=d1+d2;
+    /*Date d3(4,15,2006); //mois invalide
+    string s3="mois invalide";
+    Date d4(9,8,3090); //annee invalide
+    string s4="annee invalide";
+    Date d5(9,5,2021); //(mois<8)jour++
+    string s5="(mois<8)jour++";
+    Date d5_1(7,9,2012); //(mois>8)jour++
+    string s5_1="(mois>8)jour++";
+    Date d6(31,3,2014); //(mois<8)mois31++
+    string s6="(mois<8)mois31++";
+    Date d6_1(31,10,2023); //(mois<8)mois31++
+    string s6_1="(mois<8)mois31++";
+    Date d7(30,6,2016); //(mois<8)mois30++
+    string s7="(mois<8)mois30++";
+    Date d7_1(30,11,2011); //(mois>8)mois30++
+    string s7_1="(mois>8)mois30++";
+    Date d8(30,8,2010); //aout++
+    string s8="aout1++";
+    Date d8_1(31,8,2010); //aout++
+    string s8_1="aout2++";
+    Date d9(31,12,2017); //annee++
+    string s9="annee++";
+    Date d10(28,2,2000); //anneebisexitile1ON
+    string s10="anneebisexitile1ON";
+    Date d10_1(29,2,2020); //anneebisexitile2ON
+    string s10_1="anneebisexitile2ON";
+    Date d11(28,2,2019); //anneebisexitileOFF
+    string s11="anneebisexitileOFF";
+    tableau.push_back(d1);
+    /*tableau.push_back(d2);
+    tableau.push_back(d3);
+    tableau.push_back(d4);
+    tableau.push_back(d5);
+    tableau.push_back(d5_1);
+    tableau.push_back(d6);
+    tableau.push_back(d6_1);
+    tableau.push_back(d7);
+    tableau.push_back(d7_1);
+    tableau.push_back(d8);
+    tableau.push_back(d8_1);
+    tableau.push_back(d9);
+    tableau.push_back(d10);
+    tableau.push_back(d10_1);
+    tableau.push_back(d11);
+    description.push_back(s1);
+    /*description.push_back(s2);
+    description.push_back(s3);
+    description.push_back(s4);
+    description.push_back(s5);
+    description.push_back(s5_1);
+    description.push_back(s6);
+    description.push_back(s6_1);
+    description.push_back(s7);
+    description.push_back(s7_1);
+    description.push_back(s8);
+    description.push_back(s8_1);
+    description.push_back(s9);
+    description.push_back(s10);
+    description.push_back(s10_1);
+    description.push_back(s11);
+
+    for (i=0; i<13; i++){
+        cout<<"La date avant modif est:"<<tableau[i]<<endl;
+        cout<<"Incrementation: "<<description[i]<<": "<<endl;
+        tableau[i]=incrementer(tableau[i]);
+        cout<<"La date incrementee est:"<<tableau[i]<<endl;
+        tableau[i]=decrementer(tableau[i]);
+        cout<<"La date decrementee est:"<<tableau[i]<<endl;
+        cout<<'\n'<<endl;
+    }*/
+
+    cout<<"Le jour est:"<<df.get_jour()<<endl;
+    cout<<"Le mois est:"<<df.get_mois()<<endl;
+    cout<<"L'annee est:"<<df.get_annee()<<endl;
+    cout<<"La nouvelle date est:"<<df<<endl;
