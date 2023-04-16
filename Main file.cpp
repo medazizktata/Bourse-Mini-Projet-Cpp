@@ -117,15 +117,15 @@ Date decrementer(Date &d){
     int mois=d.get_mois();
     int annee=d.get_annee();
     int fev=28;
-    if (mois<8){
+    if (mois >1 && mois<8){
         if ((mois-1)%2==0){
             if ((mois-1)!=2){
                 if(jour>1){
-                    d.set_jour(jour--);
+                    --jour;
                 }
                 else {
-                    d.set_jour(30);
-                    d.set_mois(mois--);
+                    jour=30;
+                    --mois;
                 }
             }
             if ((mois-1)==2){
@@ -133,54 +133,58 @@ Date decrementer(Date &d){
                     fev=29;
                 }
                 if(jour>1){
-                    d.set_jour(jour--);
+                    --jour;
                 }
                 else {
-                    d.set_jour(fev);
-                    d.set_mois(mois--);
+                    jour=fev;
+                    --mois;
                 }
             }
         }
         else {
             if(jour>1){
-                    d.set_jour(jour--);
+                    --jour;
                 }
                 else {
-                    d.set_jour(31);
-                    d.set_mois(mois--);
+                    jour=31;
+                    --mois;
                 }
         }
     }
-    else if ((mois-1)!=0) {
-        if (mois%2==0){
-            if(jour>1){
-                d.set_jour(jour--);
-            }
-            else {
-                d.set_jour(31);
-                d.set_mois(mois--);
-            }
-        }
-        else {
-            if(jour>1){
-                d.set_jour(jour--);
-            }
-            else {
-                d.set_jour(30);
-                d.set_mois(mois--);
-            }
-        }
-    }
-    if((mois-1)==0) {
+    if (mois==1) {
         if(jour>1){
-            d.set_jour(jour--);
+            --jour;
         }
         else {
-            d.set_jour(31);
-            d.set_mois(12);
-            d.set_annee(annee--);
+           jour=31;
+            mois=12;
+            --annee;
         }
     }
+    if (mois>=8) {
+        if ((mois-1)%2==0){
+            if(jour>1){
+                --jour;
+            }
+            else {
+                jour=31;
+                --mois;
+            }
+        }
+        else {
+            if(jour==1){        
+                jour=30;        
+                --mois;         
+            }                  
+            else{                
+                --jour;         
+            }                   
+        }
+    }
+    
+    d.set_jour(jour);
+    d.set_mois(mois);
+    d.set_annee(annee);
     return d;
 }
 Date incrementer(Date &d){
@@ -222,6 +226,16 @@ Date incrementer(Date &d){
                 }
         }
     }
+    if (mois==12) {
+        if(jour<31){
+            ++jour;
+        }
+        else {
+           jour=1;
+            mois=1;
+            ++annee;
+        }
+    }
     if ((mois>=8) && (mois<12)) {
         if (mois%2==0){
             if(jour<31){
@@ -234,24 +248,16 @@ Date incrementer(Date &d){
         }
         else {
             if(jour==30){
-                ++jour;
+                ++mois; 
+                jour=1;
+                         /////// A CONSULTER
             }
             else{
-                jour=1;
-                ++mois;
+                ++jour;
             }
         }
     }
-    if (mois==12) {
-        if(jour<31){
-            ++jour;
-        }
-        else {
-           jour=1;
-            mois=1;
-            ++annee;
-        }
-    }
+    
     d.set_jour(jour);
     d.set_mois(mois);
     d.set_annee(annee);
@@ -351,7 +357,6 @@ int main(){
         cout<<"Incrementation: "<<description[i]<<": "<<endl;
         tableau[i]=incrementer(tableau[i]);
         cout<<"La date incrementee est:"<<tableau[i]<<endl;
-        cout<<"Decrementation: "<<description[i]<<": "<<endl;
         tableau[i]=decrementer(tableau[i]);
         cout<<"La date decrementee est:"<<tableau[i]<<endl;
         cout<<'\n'<<endl;
