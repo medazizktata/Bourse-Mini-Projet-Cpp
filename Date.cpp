@@ -290,6 +290,5 @@ void Date::saisie_date(Date d){
     }
 }
 int main(){
-    
     return 0;
 }

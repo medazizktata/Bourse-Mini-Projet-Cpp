@@ -4,18 +4,19 @@
 #include <string>
 #include "Date.h"
 using namespace std;
-class Prixjournalier {
+class PrixJournalier {
     private:
     string nom_action;
-    int prix;
+    double prix;
     Date date;
 
     public:
-    Prixjournalier(string na, int p, Date d);
+    PrixJournalier(Date d, string na, double p);
     string get_nom_action();
-    int get_prix();
+    double get_prix();
     Date get_date();
-    friend ostream& operator<<(ostream& os, const Prixjournalier& pj);
-    friend istream& operator>>(ostream& is, const Prixjournalier& pj);
+    friend ostream& operator<<(ostream& os, const PrixJournalier& pj);
+    friend istream& operator>>(ostream& is, PrixJournalier& pj);
 };
+
 #endif
