@@ -6,17 +6,19 @@
 using namespace std;
 class PrixJournalier {
     private:
-    string nom_action;
-    double prix;
-    Date date;
+        string nom_action;
+        double prix;
+        Date date;
 
     public:
-    PrixJournalier(Date d, string na, double p);
-    string get_nom_action();
-    double get_prix();
-    Date get_date();
-    friend ostream& operator<<(ostream& os, const PrixJournalier& pj);
-    friend istream& operator>>(ostream& is, PrixJournalier& pj);
+        PrixJournalier();
+        ~PrixJournalier();
+        PrixJournalier(Date d, string na, double p);
+        string get_nom_action();
+        double get_prix();
+        Date get_date();
+        friend ostream& operator<<(ostream& os, const PrixJournalier& pj);
+        friend istream& operator>>(istream& is, PrixJournalier& pj);
 };
 
 #endif

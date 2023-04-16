@@ -9,6 +9,7 @@ class Date {
         int mois;
         int annee;
     public:
+        Date();
         Date(int j, int m, int a);
         int get_jour();
         int get_mois();
@@ -23,7 +24,7 @@ class Date {
         Date incrementer(Date &d);
         Date decrementer(Date &d);
         friend ostream& operator<<(ostream& os, const Date& d);
-        friend istream& operator>>(istream& os, Date& d);
+        friend istream& operator>>(istream& is, Date& d);
         bool operator<(const Date& d) const;
         friend Date operator+(Date& d, Date& f);
         bool operator==(const Date& d);

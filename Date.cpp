@@ -3,7 +3,7 @@
 #include <vector>
 #include "Date.h"
 using namespace std;
-
+Date::Date(){}
 Date::Date(int j=0, int m=0, int a=0){
     jour=j;
     mois= m;
@@ -242,31 +242,24 @@ Date decrementer(Date &d){
     return d;
 }
 
-Date operator+(Date& d, Date& f ){
-    Date df;
+Date operator+(Date& d, Date& f){
     int annee=d.get_annee();
     int som_mois=d.get_mois()+ f.get_mois();
-    int mois;
-    int jour;
     int i;
     int diff_m=12-som_mois;
     if (diff_m<0){
-        mois=abs(diff_m);
+        d.set_mois(abs(diff_m));
         ++annee;
     }
     else {
-        mois= som_mois;
+        d.set_mois(som_mois);
     }
-    df.set_annee(annee);
-    df.set_mois(mois);
-    jour=d.get_jour();
-    df.set_jour(jour);
     i=0;
     do {
-        df=incrementer(df);
+        d=incrementer(d);
         i++;
     }while(i!=f.get_jour());
-    return df;
+    return d;
 }
 
 
@@ -290,5 +283,9 @@ void Date::saisie_date(Date d){
     }
 }
 int main(){
+    Date d1(1,4,2002);
+    Date d2(30, 11, 2011);
+    Date d= d1+d2;
+    cout<<"La date est :"<<d;
     return 0;
 }
