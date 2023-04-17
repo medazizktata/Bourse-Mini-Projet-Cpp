@@ -49,11 +49,12 @@ bool Date::cntrl_mois(int m) const{
     return (m<=12 && m>0);
 }
 bool Date::cntrl_annee(int a) const{
-    return (a<=2023 && a>2000);
+    return (a<=2023 && a>2010);
 }
 bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
 }
+
 void Date::set_jour(int nv_jour){
     if(cntrl_jour(nv_jour)){
         jour=nv_jour;
@@ -152,14 +153,13 @@ Date incrementer(Date &d){
             if(jour==30){
                 ++mois; 
                 jour=1;
-                         /////// A CONSULTER
             }
             else{
                 ++jour;
             }
         }
     }
-    
+
     d.set_jour(jour);
     d.set_mois(mois);
     d.set_annee(annee);
