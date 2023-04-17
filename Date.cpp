@@ -3,7 +3,7 @@
 #include <vector>
 #include "Date.h"
 using namespace std;
-Date::Date(){}
+
 Date::Date(int j=0, int m=0, int a=0){
     jour=j;
     mois= m;
@@ -55,6 +55,8 @@ bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
 }
 
+
+
 void Date::set_jour(int nv_jour){
     if(cntrl_jour(nv_jour)){
         jour=nv_jour;
@@ -89,6 +91,39 @@ bool annee_bissextile(int annee) {
     }
 }
 
+bool Date::date_valide(){
+    if (this->cntrl_format()==true){
+        if (mois<8){
+            if (mois%2==0){
+                if (mois!=2){
+                    return(jour<=30 && jour>0);
+                }
+                else {
+                    if (annee_bissextile(annee)){
+                        return (jour<=29 && jour>0);
+                    }
+                    else {
+                        return (jour<=28 && jour>0);
+                    }
+                }
+            }
+            else {
+                return(jour<=31 && jour>0);
+            }
+        }
+        if (mois>=8) {
+            if (mois%2==0){
+                return(jour<=31 && jour>0);
+            }
+            else {
+                return(jour<=30 && jour>0);
+            }
+        }
+    }
+    else {
+        return false;
+    }
+}
 
 Date incrementer(Date &d){
     int jour=d.get_jour();
@@ -263,13 +298,14 @@ Date operator+(Date& d, Date& f){
 }
 
 
-void Date::saisie_date(Date d){
+void Date::saisie_date(){
     bool date_valide=false;
     int c=0;
+    
     cout<<"Entrer une date sous le format suivant (jj/mm/aaaa) : ";
     while (!date_valide){
-        cin>>d;
-        if (d.cntrl_format()){
+        cin>>*this;
+        if (this->date_valide()){
             date_valide=true;
         }
         else {
@@ -283,9 +319,15 @@ void Date::saisie_date(Date d){
     }
 }
 int main(){
-    Date d1(1,4,2002);
-    Date d2(30, 11, 2011);
-    Date d= d1+d2;
-    cout<<"La date est :"<<d;
+    Date d1;
+    Date d2;
+    Date d;
+    d1.saisie_date();
+    d2.saisie_date();
+    
+    cout<<"La date est :"<<d1<<endl;
+    cout<<"La date est :"<<d2<<endl;
+    d=d1+d2;    
+    cout<<"La date est :"<<d<<endl;
     return 0;
 }
