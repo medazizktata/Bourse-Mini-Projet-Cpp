@@ -9,7 +9,9 @@ class Date {
         int mois;
         int annee;
     public:
+        Date();
         Date(int j, int m, int a);
+        ~Date();
         int get_jour();
         int get_mois();
         int get_annee();

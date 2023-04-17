@@ -6,11 +6,17 @@
 #include "Date.h"
 using namespace std;
 
-Date::Date(int j=0, int m=0, int a=0){
+Date::Date(int j, int m, int a){
     jour=j;
     mois= m;
     annee=a;
 }
+Date::Date(){
+    jour=0;
+    mois=0;
+    annee=2000;
+}
+Date::~Date(){}
 int Date::get_jour(){
     return jour;
 }
@@ -85,17 +91,10 @@ bool Date::cntrl_mois(int m) const{
     return (m<=12 && m>0);
 }
 bool Date::cntrl_annee(int a) const{
-    return (a<=2023 && a>2010);
+    return (a<=2023 && a>2000);
 }
 bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
-}
-
-int normalisation(int x){
-    string cx, z="0";
-    if (x<10){
-        cx=z+to_string(x);
-    }
 }
 
 void Date::set_jour(int nv_jour){
@@ -161,9 +160,7 @@ bool Date::date_valide(){
             }
         }
     }
-    else {
-        return false;
-    }
+    return false;
 }
 
 Date incrementer(Date &d){
