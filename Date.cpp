@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
+#include <iomanip>
 #include "Date.h"
 using namespace std;
 
@@ -19,12 +21,46 @@ int Date::get_annee(){
     return annee;
 }
 ostream& operator<<(ostream& os, const Date& d){
-    os<<d.jour<<'/'<<d.mois<<'/'<<d.annee;
+    //os<<d.jour<<'/'<<d.mois<<'/'<<d.annee;
+    //return os;
+    
+    if (d.jour < 10 || d.jour > 31) {
+        os << setfill('0') << setw(2) << d.jour;
+    } else {
+        os << d.jour;
+    }
+    os << '/';
+    if (d.mois < 10 || d.mois > 12) {
+        os << setfill('0') << setw(2) << d.mois;
+    } else {
+        os << d.mois;
+    }
+    os << '/' << d.annee;
     return os;
 }
+
 istream& operator>>(istream& is, Date& d){
-    char slash;
+    /*char slash;
     is >> d.jour >> slash >> d.mois >> slash >> d.annee;
+    return is;*/
+    string input;
+    getline(is, input, '/');
+    if (input[0] == '0') {
+        d.jour = stoi(input.substr(1));
+    } else {
+        d.jour = stoi(input);
+    }
+    getline(is, input, '/');
+    // Remove leading zeros from month field
+    if (input[0] == '0') {
+        d.mois = stoi(input.substr(1));
+    } else {
+        d.mois = stoi(input);
+    }
+    getline(is, input);
+
+    d.annee = stoi(input);
+
     return is;
 }
 bool Date::operator==(const Date& d){
@@ -55,7 +91,12 @@ bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
 }
 
-
+int normalisation(int x){
+    string cx, z="0";
+    if (x<10){
+        cx=z+to_string(x);
+    }
+}
 
 void Date::set_jour(int nv_jour){
     if(cntrl_jour(nv_jour)){
@@ -323,11 +364,12 @@ int main(){
     Date d2;
     Date d;
     d1.saisie_date();
-    d2.saisie_date();
     
-    cout<<"La date est :"<<d1<<endl;
-    cout<<"La date est :"<<d2<<endl;
-    d=d1+d2;    
-    cout<<"La date est :"<<d<<endl;
+    cout<<"La date 1 est :"<<d1<<endl;
+    cout<<"La jour 1 est :"<<d1.get_jour()<<endl;
+    cout<<"Le mois 1 est :"<<d1.get_mois()<<endl;
+    cout<<"L'annee 1 est :"<<d1.get_annee()<<endl;
+    cout<<"La date 2 est :"<<d2<<endl;
+
     return 0;
 }

@@ -9,7 +9,6 @@ class Date {
         int mois;
         int annee;
     public:
-        Date();
         Date(int j, int m, int a);
         int get_jour();
         int get_mois();
@@ -18,6 +17,7 @@ class Date {
         bool cntrl_mois(int m)const;
         bool cntrl_annee(int a) const;
         bool cntrl_format() const;
+        bool date_valide();
         void set_jour(int nv_jour);
         void set_mois(int nv_mois);
         void set_annee(int nv_annee);
@@ -28,7 +28,7 @@ class Date {
         bool operator<(const Date& d) const;
         friend Date operator+(Date& d, Date& f);
         bool operator==(const Date& d);
-        void saisie_date(const Date d);
+        void saisie_date();
 
 };
 

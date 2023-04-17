@@ -8,10 +8,10 @@ PrixJournalier::PrixJournalier(Date d, string na, double p){
     prix=p;
     date=d;
 }
-string PrixJournalier:: get_nom_action(){
+string PrixJournalier::get_nom_action(){
     return nom_action;
 }
-double PrixJournalier :: get_prix(){
+double PrixJournalier::get_prix(){
     return prix;
 }
 Date PrixJournalier::get_date(){
