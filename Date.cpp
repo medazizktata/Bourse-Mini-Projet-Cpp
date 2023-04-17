@@ -2,87 +2,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <iomanip>
 #include "Date.h"
 using namespace std;
 
-Date::Date(int j, int m, int a){
-    jour=j;
-    mois= m;
-    annee=a;
-}
-Date::Date(){
-    jour=0;
-    mois=0;
-    annee=2000;
-}
-Date::~Date(){}
-int Date::get_jour(){
-    return jour;
-}
-int Date::get_mois(){
-    return mois;
-}
-int Date::get_annee(){
-    return annee;
-}
-ostream& operator<<(ostream& os, const Date& d){
-    //os<<d.jour<<'/'<<d.mois<<'/'<<d.annee;
-    //return os;
-    
-    if (d.jour < 10 || d.jour > 31) {
-        os << setfill('0') << setw(2) << d.jour;
-    } else {
-        os << d.jour;
-    }
-    os << '/';
-    if (d.mois < 10 || d.mois > 12) {
-        os << setfill('0') << setw(2) << d.mois;
-    } else {
-        os << d.mois;
-    }
-    os << '/' << d.annee;
-    return os;
-}
-
-istream& operator>>(istream& is, Date& d){
-    /*char slash;
-    is >> d.jour >> slash >> d.mois >> slash >> d.annee;
-    return is;*/
-    string input;
-    getline(is, input, '/');
-    if (input[0] == '0') {
-        d.jour = stoi(input.substr(1));
-    } else {
-        d.jour = stoi(input);
-    }
-    getline(is, input, '/');
-    // Remove leading zeros from month field
-    if (input[0] == '0') {
-        d.mois = stoi(input.substr(1));
-    } else {
-        d.mois = stoi(input);
-    }
-    getline(is, input);
-
-    d.annee = stoi(input);
-
-    return is;
-}
-bool Date::operator==(const Date& d){
-    return ((jour== d.jour) && (mois==d.mois) && (annee==d.annee));
-}
-bool Date::operator<(const Date& d)const{
-    if(annee!=d.annee){
-        return annee<d.annee;
-    }
-    else if (mois!=d.mois){
-        return mois<d.mois;
-    }
-    else {
-        return jour<d.jour;
-    }
-}
 
 bool Date::cntrl_jour(int j) const{
    return (j<=31 && j>0);
@@ -348,7 +270,7 @@ void Date::saisie_date(){
         }
         else {
             c++;
-            cout<<"Format incorrect"<<endl;
+            cout<<"Format Incorrect"<<endl;
             cout<<"Veuillez re-entrer une date valide sous le format suivant (jj/mm/aaaa) : ";
         }
     }

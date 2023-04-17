@@ -1,11 +1,9 @@
 #ifndef PERSISTANCEPRIXJOURNALIERS_H
 #define PERSISTANCEPRIXJOURNALIERS_H
-
 #include<vector>
 #include<fstream>
 #include "PrixJournalier.h"
 using namespace std;
-
 class PersistancePrixJournaliers
 {
     public:
