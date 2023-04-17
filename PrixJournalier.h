@@ -47,7 +47,7 @@ ostream& operator<<(ostream& os, const PrixJournalier& pj){
 }
 istream& operator>>(istream& is, PrixJournalier& pj){
     /*is >> pj.date >> pj.nom_action >> pj.prix;
-    /*cout<<"Donner la date :";
+    cout<<"Donner la date :";
     is>>pj.date;
     cout<<"Donner le nom de l'action : ";
     is>>pj.nom_action;
