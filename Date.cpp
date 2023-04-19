@@ -5,6 +5,26 @@
 #include "Date.h"
 using namespace std;
 
+Date::Date(int j, int m, int a){
+    jour=j;
+    mois= m;
+    annee=a;
+}
+Date::Date(){
+    jour=0;
+    mois=0;
+    annee=2000;
+}
+Date::~Date(){}
+int Date::get_jour(){
+    return jour;
+}
+int Date::get_mois(){
+    return mois;
+}
+int Date::get_annee(){
+    return annee;
+}
 
 bool Date::cntrl_jour(int j) const{
    return (j<=31 && j>0);
@@ -19,21 +39,6 @@ bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
 }
 
-void Date::set_jour(int nv_jour){
-    if(cntrl_jour(nv_jour)){
-        jour=nv_jour;
-    }
-}
-void Date::set_mois(int nv_mois){
-    if(cntrl_mois(nv_mois)){
-        mois=nv_mois;
-    }
-}
-void Date::set_annee(int nv_annee){
-    if(cntrl_annee(nv_annee)){
-        annee=nv_annee;
-    }
-}
 bool annee_bissextile(int annee) {
     if (annee % 4 == 0) {
         if (annee % 100 == 0) {
@@ -84,6 +89,100 @@ bool Date::date_valide(){
     }
     return false;
 }
+
+ostream& operator<<(ostream& os, const Date& d){
+    //os<<d.jour<<'/'<<d.mois<<'/'<<d.annee;
+    //return os;
+    
+    if (d.jour < 10 || d.jour > 31) {
+        os << setfill('0') << setw(2) << d.jour;
+    } else {
+        os << d.jour;
+    }
+    os << '/';
+    if (d.mois < 10 || d.mois > 12) {
+        os << setfill('0') << setw(2) << d.mois;
+    } else {
+        os << d.mois;
+    }
+    os << '/' << d.annee;
+    return os;
+}
+
+istream& operator>>(istream& is, Date& d){
+    /*char slash;
+    is >> d.jour >> slash >> d.mois >> slash >> d.annee;*/
+    string input;
+    int c=-1;
+    do {
+        c++;
+        if (c>0){
+            cout<<"Format Incorrect"<<endl;
+            cout<<"Veuillez re-entrer une date valide sous le format suivant (jj/mm/aaaa) : ";
+        }
+        getline(is, input, '/');
+        if (input[0] == '0') {
+            d.jour =0; 
+            stringstream ss(input.substr(1));
+
+            ss >> d.jour;
+        } else {
+            d.jour = stoi(input);
+        }
+        getline(is, input, '/');
+        if (input[0] == '0') {
+            d.mois = stoi(input.substr(1));
+        } else {
+            d.mois = stoi(input);
+        }
+        getline(is, input);
+
+        d.annee = stoi(input);
+    }while(!d.date_valide());
+    if (c>0){
+            cout<<"Format Valide"<<endl;
+        }
+    return is;
+}
+bool Date::operator==(const Date& d){
+    return ((jour== d.jour) && (mois==d.mois) && (annee==d.annee));
+}
+bool Date::operator<(const Date& d)const{
+    if(annee!=d.annee){
+        return annee<d.annee;
+    }
+    else if (mois!=d.mois){
+        return mois<d.mois;
+    }
+    else {
+        return jour<d.jour;
+    }
+}
+Date& Date:: operator=(const Date& d){
+    if (this!=&d){
+        jour=d.jour;
+        mois=d.mois;
+        annee=d.annee;
+    }
+    return *this;
+}
+
+void Date::set_jour(int nv_jour){
+    if(cntrl_jour(nv_jour)){
+        jour=nv_jour;
+    }
+}
+void Date::set_mois(int nv_mois){
+    if(cntrl_mois(nv_mois)){
+        mois=nv_mois;
+    }
+}
+void Date::set_annee(int nv_annee){
+    if(cntrl_annee(nv_annee)){
+        annee=nv_annee;
+    }
+}
+
 
 Date incrementer(Date &d){
     int jour=d.get_jour();
@@ -279,16 +378,23 @@ void Date::saisie_date(){
     }
 }
 int main(){
-    Date d1;
-    Date d2;
-    Date d;
-    d1.saisie_date();
     
-    cout<<"La date 1 est :"<<d1<<endl;
-    cout<<"La jour 1 est :"<<d1.get_jour()<<endl;
-    cout<<"Le mois 1 est :"<<d1.get_mois()<<endl;
-    cout<<"L'annee 1 est :"<<d1.get_annee()<<endl;
-    cout<<"La date 2 est :"<<d2<<endl;
+    Date d;
+    cout<<"Veuillez entrer une date sous le format suivant (jj/mm/aaaa) : ";
+    cin>>d;
+    cout<<"La date est :"<<d<<endl;
+    cout<<"La jour est :"<<d.get_jour()<<endl;
+    cout<<"Le mois est :"<<d.get_mois()<<endl;
+    cout<<"L'annee est :"<<d.get_annee()<<endl;
+
+
+    Date d1;
+    cout<<"Veuillez entrer une date sous le format suivant (jj/mm/aaaa) : ";
+    cin>>d1;
+    cout<<"La date est :"<<d1<<endl;
+    cout<<"La jour est :"<<d1.get_jour()<<endl;
+    cout<<"Le mois est :"<<d1.get_mois()<<endl;
+    cout<<"L'annee est :"<<d1.get_annee()<<endl;
 
     return 0;
 }

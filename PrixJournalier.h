@@ -2,7 +2,9 @@
 #define PRIXJOURNALIER_H_INCLUDED
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Date.h"
+#include "Date.cpp"
 using namespace std;
 class PrixJournalier {
     private:
@@ -42,7 +44,13 @@ Date PrixJournalier::get_date(){
     return date;
 }
 ostream& operator<<(ostream& os, const PrixJournalier& pj){
-    os<<pj.date<<" "<<pj.nom_action<<" "<<pj.prix<<endl;
+    int dec = 0;
+    string prix_str = to_string(pj.prix);
+        size_t pos = prix_str.find(".");
+        if (pos != string::npos) {
+            dec = prix_str.size() - pos;
+        }
+    os<<pj.date<<" "<<pj.nom_action<<" "<<prix_str<<" "<<pos<<" "<<dec<<" "<< fixed << setprecision(dec) <<pj.prix<<endl;
     return os;
 }
 istream& operator>>(istream& is, PrixJournalier& pj){
@@ -53,19 +61,18 @@ istream& operator>>(istream& is, PrixJournalier& pj){
     is>>pj.nom_action;
     cout<<"Donner le prix : ";
     is>>pj.prix;*/
-    string line;
+   string line;
     if (getline(is, line)) {
         stringstream ss(line);
         string date_str;
-        getline(ss, date_str, '/');
-        int jour = stoi(date_str.substr(0,2));
-        int mois = stoi(date_str.substr(3,2));
-        int annee = stoi(date_str.substr(6,4));
-        Date date(jour, mois, annee);
+        getline(ss, date_str, ';');
+        Date date;
+        stringstream(date_str)>>date;
         string nom_action;
-        getline(ss, nom_action, '/');
-        double prix;
-        ss >> prix;
+        getline(ss, nom_action, ';');
+        string prix_str;
+        getline(ss, prix_str);
+        long double prix = stod(prix_str);
         pj = PrixJournalier(date, nom_action, prix);
     }
     return is;

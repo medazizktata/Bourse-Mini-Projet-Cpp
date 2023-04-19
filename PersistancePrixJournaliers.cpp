@@ -12,10 +12,10 @@ int main(){
     vector<PrixJournalier> historique = PersistancePrixJournaliers::lirePrixJournaliersDUnFichier(filepath);
     ifstream f(filepath);
     if (!f.is_open()) {
-        cerr << "Failed to open file: " << filepath << endl;
+        cout << "Failed to open file: " << filepath << endl;
     }
     else {
-        cerr<< "Opened Succefullly"<<endl;
+        cout<< "Opened Succefullly"<<endl;
     }
     cout << "Number of records read: " << historique.size() << endl;
 

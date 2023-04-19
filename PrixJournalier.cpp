@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+
 #include "Date.h"
+#include "Date.cpp"
 #include "PrixJournalier.h"
 using namespace std;
 
