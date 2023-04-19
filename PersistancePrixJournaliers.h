@@ -16,7 +16,9 @@ class PersistancePrixJournaliers
                 f>>entete;
                 while(!f.eof()){
                     PrixJournalier pj;
-                    f>>(pj);
+                    f>>pj;
+                    cout << "Read in line: " << entete << endl;
+
                     historique.push_back(pj);
                     nbLignes++;
                 }

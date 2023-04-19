@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include "Date.h"
+#include <iomanip>
 using namespace std;
 
 Date::Date(int j, int m, int a){
@@ -109,9 +110,8 @@ ostream& operator<<(ostream& os, const Date& d){
     return os;
 }
 
-istream& operator>>(istream& is, Date& d){
-    /*char slash;
-    is >> d.jour >> slash >> d.mois >> slash >> d.annee;*/
+//Surcharge >> avec controle de saisie:
+/*istream& operator>>(istream& is, Date& d){
     string input;
     int c=-1;
     do {
@@ -143,7 +143,32 @@ istream& operator>>(istream& is, Date& d){
             cout<<"Format Valide"<<endl;
         }
     return is;
+}*/
+
+istream& operator>>(istream& is, Date& d){
+
+    string input;
+    int c=-1;
+    getline(is, input, '/');
+    if (input[0] == '0') {
+        d.jour =0; 
+        stringstream ss(input.substr(1));
+
+    } else {
+        d.jour = stoi(input);
+    }
+    getline(is, input, '/');
+    if (input[0] == '0') {
+        d.mois = stoi(input.substr(1));
+    } else {
+        d.mois = stoi(input);
+    }
+    getline(is, input);
+
+    d.annee = stoi(input);
+    return is;
 }
+
 bool Date::operator==(const Date& d){
     return ((jour== d.jour) && (mois==d.mois) && (annee==d.annee));
 }
@@ -377,24 +402,4 @@ void Date::saisie_date(){
         cout<<"Format Valide"<<endl;
     }
 }
-int main(){
-    
-    Date d;
-    cout<<"Veuillez entrer une date sous le format suivant (jj/mm/aaaa) : ";
-    cin>>d;
-    cout<<"La date est :"<<d<<endl;
-    cout<<"La jour est :"<<d.get_jour()<<endl;
-    cout<<"Le mois est :"<<d.get_mois()<<endl;
-    cout<<"L'annee est :"<<d.get_annee()<<endl;
 
-
-    Date d1;
-    cout<<"Veuillez entrer une date sous le format suivant (jj/mm/aaaa) : ";
-    cin>>d1;
-    cout<<"La date est :"<<d1<<endl;
-    cout<<"La jour est :"<<d1.get_jour()<<endl;
-    cout<<"Le mois est :"<<d1.get_mois()<<endl;
-    cout<<"L'annee est :"<<d1.get_annee()<<endl;
-
-    return 0;
-}

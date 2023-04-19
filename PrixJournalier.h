@@ -49,10 +49,28 @@ ostream& operator<<(ostream& os, const PrixJournalier& pj){
         size_t pos = prix_str.find(".");
         if (pos != string::npos) {
             dec = prix_str.size() - pos;
+            os<<pj.date<<" "<<pj.nom_action<<" "<< fixed << setprecision(dec) <<pj.prix<<endl;
+        } 
+        if (pos==0){
+            os<<pj.date<<" "<<pj.nom_action<<" "<<pj.prix<<endl;
         }
-    os<<pj.date<<" "<<pj.nom_action<<" "<<prix_str<<" "<<pos<<" "<<dec<<" "<< fixed << setprecision(dec) <<pj.prix<<endl;
+    
     return os;
 }
+bool is_float(const string& str) {
+    bool has_dot = false;
+    for (char c : str) {
+        if (!std::isdigit(c)) {
+            if (c == '.' && !has_dot) {
+                has_dot = true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return has_dot;
+}
+
 istream& operator>>(istream& is, PrixJournalier& pj){
     /*is >> pj.date >> pj.nom_action >> pj.prix;
     cout<<"Donner la date :";
@@ -61,20 +79,31 @@ istream& operator>>(istream& is, PrixJournalier& pj){
     is>>pj.nom_action;
     cout<<"Donner le prix : ";
     is>>pj.prix;*/
-   string line;
-    if (getline(is, line)) {
-        stringstream ss(line);
-        string date_str;
-        getline(ss, date_str, ';');
-        Date date;
-        stringstream(date_str)>>date;
-        string nom_action;
-        getline(ss, nom_action, ';');
-        string prix_str;
-        getline(ss, prix_str);
-        long double prix = stod(prix_str);
-        pj = PrixJournalier(date, nom_action, prix);
+    string input;
+    getline(is, input, ';');
+    stringstream ss(input);
+    ss >> pj.date;
+    getline(is, pj.nom_action, ';');
+    getline(is, input);
+    
+    if (!pj.date.date_valide() && !is_float(input) ){
+        cerr << "Format incorrect. Veuillez re-entrer un prix et une date valide sous le format suivant (jj/mm/aaaa): ";
+        is>>pj;
+        return is;
     }
+    if (!is_float(input)){
+        cerr << "Format incorrect. Veuillez re-entrer un prix valide: ";
+        is>>pj;
+        return is;
+    }
+    pj.prix = stod(input);
+    if (!pj.date.date_valide()){
+        cerr << "Format incorrect. Veuillez re-entrer une date valide sous le format suivant (jj/mm/aaaa): ";
+        is>>pj;
+        return is;
+    }
+    
+    
     return is;
 }
 #endif

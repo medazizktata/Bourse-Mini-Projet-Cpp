@@ -2,22 +2,17 @@
 #include <string>
 
 #include "Date.h"
-#include "Date.cpp"
 #include "PrixJournalier.h"
 using namespace std;
 
 int main (){
-    Date d(1,6,2022);
-    Date d1(10,12,2014);
-    Date d2;
-    PrixJournalier p2, p3;
-    cout<<d<<endl;
-    cout<<d1<<endl;
-    PrixJournalier p(d, "ETH", 50);
-    cout<<p2<<endl;
-    cout<<p<<endl;
-    cout<<"Action"<<endl;
+    PrixJournalier p3, p4;
+    string s="13/3/2020;efaehfbe;3242";
+    
+    cout<<"Action :";
     cin>>p3;
-    cout<<p3<<endl;
+    cout<<"Date:"<<p3.get_date()<<endl;
+    cout<<"Nom:"<<p3.get_nom_action()<<endl;
+    cout<<"Prix:"<<p3.get_prix()<<endl;
     return 0;
 }

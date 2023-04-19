@@ -1,12 +1,7 @@
 #ifndef DATE_H_INCLUDED
 #define DATE_H_INCLUDED
 #include <iostream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <iomanip>
 using namespace std;
-
 class Date {
     private:
         int jour;
@@ -36,9 +31,6 @@ class Date {
         bool operator==(const Date& d);
         Date& operator=(const Date& d);
         void saisie_date();
-
 };
 
-
-
-#endif // DATE_H_INCLUDED
+#endif 
