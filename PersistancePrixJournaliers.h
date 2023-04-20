@@ -7,24 +7,25 @@ using namespace std;
 class PersistancePrixJournaliers
 {
     public:
-        static vector<PrixJournalier> lirePrixJournaliersDUnFichier(string chemin){
-            vector<PrixJournalier> historique;
-            ifstream f(chemin);
-            int nbLignes= 0;
-            string entete;
-            if(f.is_open()){
-                f>>entete;
-                while(!f.eof()){
-                    PrixJournalier pj;
-                    f>>pj;
-                    cout << "Read in line: " << entete << endl;
-
-                    historique.push_back(pj);
-                    nbLignes++;
-                }
+    static vector<PrixJournalier> lirePrixJournaliersDUnFichier(string chemin){
+        vector<PrixJournalier> historique;
+        ifstream f(chemin);
+        int nbLignes = 0;
+        string entete;
+        if(f.is_open()){
+            getline(f, entete); // skip the first line
+            nbLignes++;
+            while(getline(f, entete)){
+                PrixJournalier pj;
+                istringstream ss(entete);
+                ss >> pj;
+                historique.push_back(pj);
+                nbLignes++;
             }
-            return historique;
         }
+        return historique;
+}
+
 };
 
 #endif // PERSISTANCEPRIXJOURNALIERS_H
