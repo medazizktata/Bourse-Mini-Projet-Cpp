@@ -94,7 +94,6 @@ bool Date::date_valide(){
 ostream& operator<<(ostream& os, const Date& d){
     //os<<d.jour<<'/'<<d.mois<<'/'<<d.annee;
     //return os;
-    
     if (d.jour < 10 || d.jour > 31) {
         os << setfill('0') << setw(2) << d.jour;
     } else {
@@ -147,7 +146,7 @@ ostream& operator<<(ostream& os, const Date& d){
 
 istream& operator>>(istream& is, Date& d){
 
-    string input;
+    /*string input;
     int c=-1;
     getline(is, input, '/');
     if (input[0] == '0') {
@@ -166,6 +165,15 @@ istream& operator>>(istream& is, Date& d){
     getline(is, input);
 
     d.annee = stoi(input);
+    return is;*/
+    char slash;
+    is >> d.jour >> slash >> d.mois >> slash >> d.annee;
+    if (d.jour < 10) {
+        d.jour = d.jour % 10;
+    }
+    if (d.mois < 10) {
+        d.mois = d.mois % 10;
+    }
     return is;
 }
 

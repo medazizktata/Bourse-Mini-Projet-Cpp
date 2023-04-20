@@ -72,13 +72,6 @@ bool is_float(const string& str) {
 }
 
 istream& operator>>(istream& is, PrixJournalier& pj){
-    /*is >> pj.date >> pj.nom_action >> pj.prix;
-    cout<<"Donner la date :";
-    is>>pj.date;
-    cout<<"Donner le nom de l'action : ";
-    is>>pj.nom_action;
-    cout<<"Donner le prix : ";
-    is>>pj.prix;*/
     string input;
     getline(is, input, ';');
     stringstream ss(input);
@@ -102,8 +95,6 @@ istream& operator>>(istream& is, PrixJournalier& pj){
         is>>pj;
         return is;
     }
-    
-    
     return is;
 }
 #endif
