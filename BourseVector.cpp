@@ -47,6 +47,7 @@ vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date&
     }
     return prixJournaliersParDate;
 }
+
 bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
     return b.first < a.first;
 }
@@ -66,13 +67,17 @@ void BourseVector::acces_archive(const Date d, int n, const string nom){
             break;
         }
     }
-    sort(getaction_dates.begin(), getaction_dates.end(), compare_date);
-    cout<<"Nom de l'action : "<<nom<<endl;
-    cout<<"Date limite de recherche : "<<d<<endl;
-    cout<<"Nombre d'actions trouvees : "<<i<<endl;
-    for (auto j : getaction_dates){
-        cout<<"Date :"<<j.first;
-        cout<<" "<<"Prix : "<<j.second<<endl;
+    if (getaction_dates.size() == 0) {
+        cout << "Action "<<nom<<" pas trouvee avant le "<<d<<endl;
+    } else {
+        sort(getaction_dates.begin(), getaction_dates.end(), compare_date);
+        cout<<"Nom de l'action : "<<nom<<endl;
+        cout<<"Date limite de recherche : "<<d<<endl;
+        cout<<"Nombre d'actions trouvees : "<<i<<endl;
+        for (auto j : getaction_dates){
+            cout<<"Date :"<<j.first;
+            cout<<" "<<"Prix : "<<j.second<<endl;
+        }
     }
     
 }
@@ -115,6 +120,10 @@ int main (){
     }
     Date d2(1,1,2015);
     B.acces_archive(d2,5,"IR");
+    Date d3(6,3,2013);
+    B.acces_archive(d3,10,"IRM");
+    Date d4(5,3,2014);
+    B.acces_archive(d4,10,"KKKK");
     return 0;
 }
 
