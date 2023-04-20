@@ -47,6 +47,10 @@ vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date&
     }
     return prixJournaliersParDate;
 }
+bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
+    return b.first < a.first;
+}
+
 void BourseVector::acces_archive(const Date d, int n, const string nom){
 
     vector<PrixJournalier>::iterator c = m_prixJournaliers.begin();
@@ -62,6 +66,7 @@ void BourseVector::acces_archive(const Date d, int n, const string nom){
             break;
         }
     }
+    sort(getaction_dates.begin(), getaction_dates.end(), compare_date);
     cout<<"Nom de l'action : "<<nom<<endl;
     cout<<"Date limite de recherche : "<<d<<endl;
     cout<<"Nombre d'actions trouvees : "<<i<<endl;
