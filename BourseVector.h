@@ -15,7 +15,6 @@ private:
 
 public:
     BourseVector(const vector<PrixJournalier>& prixJournaliers, const string& prices_simple.csv);
-
     vector<string> getActionsDisponiblesParDate(const Date& date) const ;
     vector<PrixJournalier> getPrixJournaliersParDate(const Date& date) const;
 
