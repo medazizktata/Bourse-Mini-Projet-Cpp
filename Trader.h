@@ -6,7 +6,7 @@ using namespace std;
 class Trader {
     public:
     Trader();
-    void lancer_simulation(Date d, int n, double p );
+    void lancer_simulation(Date d, int n, double p);
     virtual int prendre_decision()=0;
     virtual void acceder_a_archive_des_prix()=0;
     private:

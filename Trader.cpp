@@ -19,14 +19,18 @@ using namespace std;
     Humain::Humain(){}
     void Humain::lancer_simulation(Date d, int n, double p){}
     int Humain::prendre_decision(){
-        int c;
+        int c, i=-1;
+        cout<<"Menu : "<<endl;
+        cout<<"1) Acheter une action "<<endl;
+        cout<<"2) Vendre une action "<<endl;
+        cout<<"3) Quitter "<<endl;
         do {
-            cout<<"Menu : "<<endl;
-            cout<<"1) Acheter une action "<<endl;
-            cout<<"2) Vendre une action "<<endl;
-            cout<<"3) Quitter "<<endl;
+            i++;
+            if (i>0){
+                cout<<"Choix incorrect, Veuillez réessayer!"<<endl;
+            }
             cout<<"Choisir option : ";
-            cin>> c;
+            cin>>c;
         }while(c<0 || c>3);
         return c;
     }
