@@ -14,6 +14,7 @@ public:
     vector<PrixJournalier> get_bourse();
     vector<string> getActionsDisponiblesParDate(const Date& d) const ;
     vector<pair<string, double>> getPrixJournaliersParDate(const Date& d) const;
+    double get_prix_action(const Date d, string nom);
     void acces_archive(const Date d, int i, const string nom);
 };
 

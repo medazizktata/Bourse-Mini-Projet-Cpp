@@ -4,14 +4,9 @@
 #include <algorithm>
 #include "BourseVector.h"
 #include "PersistancePrixJournaliers.h"
-//#include <xlnt/xlnt.hpp>
 
 using namespace std;
-/*
-xlnt::workbook prices_simple;
-fichierExcel.load('prices_simple');
-xlnt::worksheet feuille = prices_simple.active_sheet();
-*/
+
 BourseVector::BourseVector(const string& filepath){
     m_prixJournaliers = PersistancePrixJournaliers::lirePrixJournaliersDUnFichier(filepath);
 }
@@ -31,6 +26,7 @@ vector<string> BourseVector::getActionsDisponiblesParDate(const Date& d) const{
     }
     return actionsDisponibles;
 }
+
 vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date& date) const{
     vector<pair<string, double>> prixJournaliersParDate;
     bool found = false;
@@ -48,16 +44,32 @@ vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date&
     return prixJournaliersParDate;
 }
 
+double BourseVector::get_prix_action(const Date d, string nom){
+    double prix;
+    bool found = false;
+    for (auto compteur : m_prixJournaliers) {
+        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
+            prix=compteur.get_prix();
+            found=true;
+
+        }
+    }
+    if(!found){ 
+        prix=0.0; 
+    }
+    return prix;
+}
+
 bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
     return b.first < a.first;
 }
 
 void BourseVector::acces_archive(const Date d, int n, const string nom){
 
-    vector<PrixJournalier>::iterator c = m_prixJournaliers.begin();
+    vector<PrixJournalier>::iterator c;
     vector<pair<Date, double>> getaction_dates;
     int i=0;
-    for (c; c<m_prixJournaliers.end(); ++c){
+    for (c = m_prixJournaliers.begin(); c<m_prixJournaliers.end(); ++c){
         if (c->get_nom_action()==nom && c->get_date()<d){
             pair<Date, double> cp=make_pair(c->get_date(),c->get_prix());
             getaction_dates.push_back(cp);
@@ -81,11 +93,13 @@ void BourseVector::acces_archive(const Date d, int n, const string nom){
     }
     
 }
+
+
 int main (){
     string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
     
     BourseVector B(filepath);
-   
+    double k, j;
     Date d(24,1,2010);
     Date d1(4,1,2010);
     vector<string> adispo = B.getActionsDisponiblesParDate(d);
@@ -124,6 +138,11 @@ int main (){
     B.acces_archive(d3,10,"IRM");
     Date d4(5,3,2014);
     B.acces_archive(d4,10,"KKKK");
+    k=B.get_prix_action(d2, "IR");
+    j=B.get_prix_action(d3, "IRM");
+    cout<<"Recherche de l'action IR a la date "<<d2<<" : "<<k<<endl;
+    cout<<"Recherche de l'action IRM a la date "<<d3<<" : "<<j<<endl;
+
     return 0;
 }
 
