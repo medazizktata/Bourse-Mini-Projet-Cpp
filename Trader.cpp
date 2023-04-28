@@ -8,7 +8,7 @@
 using namespace std;
 
     Trader::Trader(){}
-    void Trader::lancer_simulation(Date d, int c, double p ){
+    void Trader::lancer_simulation(Date d, int c, double p){
         
 
     }
@@ -17,7 +17,7 @@ using namespace std;
 
 
     Humain::Humain(){}
-    void Humain::lancer_simulation(Date d, int n, double p){}
+    void Humain::lancer_simulation(Date d, int c, double p){}
     int Humain::prendre_decision(){
         int c, i=-1;
         cout<<"Menu : "<<endl;

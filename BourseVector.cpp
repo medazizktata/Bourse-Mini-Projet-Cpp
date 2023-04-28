@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "BourseVector.h"
 #include "PersistancePrixJournaliers.h"
+#include "PrixJournalier.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ BourseVector::BourseVector(const string& filepath){
 vector<PrixJournalier> BourseVector::get_bourse(){
     return m_prixJournaliers;
 }
-vector<string> BourseVector::getActionsDisponiblesParDate(const Date& d) const{
+vector<string> BourseVector::getActionsDisponiblesParDate(Date& d) const{
     vector<string> actionsDisponibles;
     bool found = false;
     for(auto compteur : m_prixJournaliers){
@@ -27,7 +28,7 @@ vector<string> BourseVector::getActionsDisponiblesParDate(const Date& d) const{
     return actionsDisponibles;
 }
 
-vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date& date) const{
+/*vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date& date) const{
     vector<pair<string, double>> prixJournaliersParDate;
     bool found = false;
     for (auto compteur : m_prixJournaliers) {
@@ -42,7 +43,7 @@ vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date&
         prixJournaliersParDate.push_back(p); 
     }
     return prixJournaliersParDate;
-}
+}*/
 
 double BourseVector::get_prix_action(const Date d, string nom){
     double prix;
@@ -58,6 +59,21 @@ double BourseVector::get_prix_action(const Date d, string nom){
         prix=0.0; 
     }
     return prix;
+}
+
+PrixJournalier* BourseVector::getprix_action_date(Date d, string nom){
+    PrixJournalier* resultat;
+    bool found = false;
+    for (auto compteur : m_prixJournaliers) {
+        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
+            *resultat=compteur;
+            found=true;
+        }
+    }
+    if(!found){ 
+        resultat=NULL; 
+    }
+    return resultat;
 }
 
 bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
@@ -102,7 +118,6 @@ int main (){
     double k, j;
     Date d(24,1,2010);
     Date d1(4,1,2010);
-    vector<string> adispo = B.getActionsDisponiblesParDate(d);
     int i = 0;
     /*cout << "Actions disponibles pour le " << d << ":" << endl;
     for (auto ad : adispo) {
@@ -110,11 +125,10 @@ int main (){
         cout<<"Action "<<i<<" : "<<ad<<endl;
     }*/
     
-    pair<string, double> nulpair= make_pair("unavailable", 0.0);
-    vector<pair<string, double>> pjdate = B.getPrixJournaliersParDate(d);
+    vector<string> pjdate = B.getActionsDisponiblesParDate(d);
     cout << "Prix journaliers pour le " << d << ":" << endl;
     for (auto pj : pjdate) {
-        if (pj==nulpair){
+        if (pj=="Match not found"){
             cout<< pj.first << " : " << pj.second << endl;
         }else {
             i++;

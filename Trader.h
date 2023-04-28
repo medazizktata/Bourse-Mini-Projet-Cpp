@@ -15,7 +15,7 @@ class Trader {
 class Humain : public Trader {
     public:
     Humain();
-    void lancer_simulation(Date d, int n, double p);
+    void lancer_simulation(Date d, int c, double p);
     int prendre_decision();
     void acceder_a_archive_des_prix(Date d, int n, string nom); 
 };
