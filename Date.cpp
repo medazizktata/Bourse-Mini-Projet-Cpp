@@ -12,9 +12,9 @@ Date::Date(int j, int m, int a){
     annee=a;
 }
 Date::Date(){
-    jour=0;
-    mois=0;
-    annee=2000;
+    jour=4;
+    mois=1;
+    annee=2010;
 }
 Date::~Date(){}
 int Date::get_jour(){
