@@ -14,7 +14,7 @@ using namespace std;
 BourseVector::BourseVector(const string& filepath){
     m_prixJournaliers = PersistancePrixJournaliers::lirePrixJournaliersDUnFichier(filepath);
 }
-BourseVector::~BourseVector(){}
+BourseVector::~BourseVector(){cout<<"Bourse a ete detruite"<<endl;}
 vector<PrixJournalier> BourseVector::get_bourse(){
     return m_prixJournaliers;
 }
@@ -83,7 +83,7 @@ void BourseVector::acces_archive(const Date d, int n, const string nom){
     
 }
 
-PrixJournalier* BourseVector::getprix_action_date(Date d, string nom) const{
+PrixJournalier* BourseVector::getprixjournalier(Date d, string nom) const{
     PrixJournalier* resultat=nullptr;
     for (auto compteur : m_prixJournaliers) {
         if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
@@ -139,16 +139,31 @@ double BourseVector::get_prix_action(const Date d, string nom){
 int main (){
     string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
     BourseVector B(filepath);
-    double k, j;
-    Date d(24,1,2011);
-    Date d1(4,1,2010);
+    double k, j, l;
+    /*Date d(28,02,2014); //490
+    Date d1(05,11,2015); //498
+    Date dd(29,02,2010); //0
+    int ii = 0;
+    vector<string> pjjddate = B.getActionsDisponiblesParDate(dd);
+    cout << "Prix journaliers pour le " << dd << ":" << endl;
+    for (string pjj : pjjddate) {
+        double prr=B.get_prix_action(d, pjj);
+        if (pjj=="Match not found"){
+            cout<< pjj << endl;
+        }else {
+            ii++;
+            cout <<"Action "<<ii<<" : "<< pjj<< " : " << prr << endl;
+        }
+    }
+    cout<<'\n'<<endl;
+    cout<<'\n'<<endl;
     int i = 0;
     vector<string> pjdate = B.getActionsDisponiblesParDate(d);
     cout << "Prix journaliers pour le " << d << ":" << endl;
     for (string pj : pjdate) {
         double pr=B.get_prix_action(d, pj);
         if (pj=="Match not found"){
-            cout<< pj << " : " << pr << endl;
+            cout<< pj << endl;
         }else {
             i++;
             cout <<"Action "<<i<<" : "<< pj<< " : " << pr << endl;
@@ -159,25 +174,61 @@ int main (){
     int l=0;
     vector<string> pjdate1 = B.getActionsDisponiblesParDate(d1);
     cout << "Prix journaliers pour le " << d1 << ":" << endl;
-    for (string pj1 : pjdate) {
+    for (string pj1 : pjdate1) {
         double pr1=B.get_prix_action(d1, pj1);
         if (pj1=="Match not found"){
-            cout<< pj1 << " : " << pr1 << endl;
+            cout<< pj1 << endl;
         }else {
             l++;
             cout <<"Action "<<l<<" : "<< pj1 << " : " << pr1 << endl;
         }
-    }
-    Date d2(1,1,2015);
+    }*/
+    PrixJournalier* dp;
+    Date dtp(21,03,2012);
+    dp=B.getprixjournalier(dtp, "DLTR");//94.730003
+    cout<<"Prix de l'action DLTR a la date "<<dtp<<" est : "<<*dp<< endl;
+    
+    
+    PrixJournalier* dp1;
+    Date dtp1(06,07,2010);
+    dp1=B.getprixjournalier(dtp1, "DE");//54.630001
+    cout<<"Prix de l'action DE a la date "<<dtp1<<" est : "<<*dp1<< endl;
+
+
+    PrixJournalier* dp2;
+    Date dtp2(8,12,2014);
+    dp2=B.getprixjournalier(dtp2, "IR");//62.57
+    cout<<"Prix de l'action DE a la date "<<dtp2<<" est : "<<*dp2<< endl;
+
+    string s="IR";
+    double ds=B.get_dernier_prix_action(s);
+    cout<<"Dernier prix de "<<s<<" est : "<<ds<<endl; //30/12/2015
+    cout<<'\n';
+
+
+    string s1="FLIR";
+    double ds1=B.get_dernier_prix_action(s1);
+    cout<<"Dernier prix de "<<s1<<" est : "<<ds1<<endl; //30/12/2016
+    cout<<'\n';
+
+
+    Date d2(1,1,2015); //Not found
     B.acces_archive(d2,5,"IR");
-    Date d3(6,3,2013);
-    B.acces_archive(d3,10,"IRM");
+    Date d3(6,3,2013);  //06/03/2013;IRM;34.810006
+    B.acces_archive(d3,10,"IRM"); 
     Date d4(5,3,2014);
-    B.acces_archive(d4,10,"KKKK");
-    k=B.get_prix_action(d2, "IR");
-    j=B.get_prix_action(d3, "IRM");
+    B.acces_archive(d4,10,"KKKK"); //Not found
+    
+    
+    k=B.get_prix_action(d2, "IR");//Not found
+    j=B.get_prix_action(d3, "IRM"); //06/03/2013;IRM;34.810006
+    l=B.get_prix_action(d4, "KKKK");//Not found
     cout<<"Recherche de l'action IR a la date "<<d2<<" : "<<k<<endl;
+    cout<<'\n';
     cout<<"Recherche de l'action IRM a la date "<<d3<<" : "<<j<<endl;
+    cout<<'\n';
+    cout<<"Recherche de l'action KKK a la date "<<d4<<" : "<<l<<endl;
+    cout<<'\n';
 
     return 0;
 }
