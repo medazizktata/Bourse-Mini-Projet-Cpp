@@ -78,6 +78,10 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "ctime": "cpp",
-    "iomanip": "cpp"
-  }
+    "iomanip": "cpp",
+    "chrono": "cpp",
+    "ratio": "cpp",
+    "thread": "cpp"
+  },
+  "C_Cpp_Runner.showCompilationTime": false
 }

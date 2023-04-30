@@ -11,6 +11,7 @@ private:
 
 public:
     BourseVector(const string& filepath);
+    ~BourseVector();
     vector<PrixJournalier> get_bourse();
     void acces_archive(const Date d, int i, const string nom);
     PrixJournalier* getprix_action_date(Date d, string nom) const;

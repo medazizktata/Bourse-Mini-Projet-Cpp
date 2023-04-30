@@ -1,7 +1,10 @@
+#define _GLIBCXX_USE_CXX11_ABI 1
 #include <iostream>
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <chrono>
+#include <thread>
 #include "BourseVector.h"
 #include "PersistancePrixJournaliers.h"
 #include "PrixJournalier.h"
@@ -11,77 +14,16 @@ using namespace std;
 BourseVector::BourseVector(const string& filepath){
     m_prixJournaliers = PersistancePrixJournaliers::lirePrixJournaliersDUnFichier(filepath);
 }
+BourseVector::~BourseVector(){}
 vector<PrixJournalier> BourseVector::get_bourse(){
     return m_prixJournaliers;
 }
-vector<string> BourseVector::getActionsDisponiblesParDate(Date& d) const{
-    vector<string> actionsDisponibles;
-    bool found = false;
-    for(auto compteur : m_prixJournaliers){
-        if(compteur.get_date()== d){
-            actionsDisponibles.push_back(compteur.get_nom_action());
-        }
-    }
-    if (!found){
-        actionsDisponibles.push_back("Match not found");
-    }
-    return actionsDisponibles;
-}
 
-/*vector<pair<string, double>> BourseVector::getPrixJournaliersParDate(const Date& date) const{
-    vector<pair<string, double>> prixJournaliersParDate;
-    bool found = false;
-    for (auto compteur : m_prixJournaliers) {
-        if (compteur.get_date() == date) {
-            pair <string, double> p= make_pair(compteur.get_nom_action(),compteur.get_prix());
-            prixJournaliersParDate.push_back(p);
-            found=true;
-        }
-    }
-    if(!found){ 
-        pair<string, double> p = make_pair("unavailable", 0.0); // Create a pair with "unavailable" and 0.0
-        prixJournaliersParDate.push_back(p); 
-    }
-    return prixJournaliersParDate;
-}*/
 
-double BourseVector::get_prix_action(const Date d, string nom){
-    double prix;
-    bool found = false;
-    for (auto compteur : m_prixJournaliers) {
-        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
-            prix=compteur.get_prix();
-            found=true;
-
-        }
-    }
-    if(!found){ 
-        prix=0.0; 
-    }
-    return prix;
-}
-
-PrixJournalier* BourseVector::getprix_action_date(Date d, string nom){
-    PrixJournalier* resultat;
-    bool found = false;
-    for (auto compteur : m_prixJournaliers) {
-        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
-            *resultat=compteur;
-            found=true;
-        }
-    }
-    if(!found){ 
-        resultat=NULL; 
-    }
-    return resultat;
-}
-
-bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
-    return b.first < a.first;
-}
-
-void BourseVector::acces_archive(const Date d, int n, const string nom){
-
+/*void BourseVector::acces_archive(const Date d, int n, const string nom){
+    bool compare_date(const pair<Date, double>& a, const pair<Date, double>& b) {
+        return b.first < a.first;
+    };
     vector<PrixJournalier>::iterator c;
     vector<pair<Date, double>> getaction_dates;
     int i=0;
@@ -108,42 +50,122 @@ void BourseVector::acces_archive(const Date d, int n, const string nom){
         }
     }
     
+}*/
+
+bool compare_date(PrixJournalier a, PrixJournalier b){
+    return (a.get_date() < b.get_date());
+}; 
+
+void BourseVector::acces_archive(const Date d, int n, const string nom){
+    vector<PrixJournalier> getaction_dates;
+    int i=0;
+    for (PrixJournalier& c: m_prixJournaliers){
+        if (c.get_nom_action()==nom && c.get_date()<d){
+            getaction_dates.push_back(c);
+            i++;
+        }
+        if (i == n) {
+            break;
+        }
+    }
+    if (getaction_dates.size() == 0) {
+        cout << "Action "<<nom<<" pas trouvee avant le "<<d<<endl;
+    } else {
+        sort(getaction_dates.begin(), getaction_dates.end(), compare_date);
+        cout<<"Nom de l'action : "<<nom<<endl;
+        cout<<"Date limite de recherche : "<<d<<endl;
+        cout<<"Nombre d'actions trouvees : "<<i<<endl;
+        for (auto j : getaction_dates){
+            cout<<"Date :"<<j.get_date();
+            cout<<" "<<"Prix : "<<j.get_prix()<<endl;
+        }
+    }
+    
+}
+
+PrixJournalier* BourseVector::getprix_action_date(Date d, string nom) const{
+    PrixJournalier* resultat=nullptr;
+    for (auto compteur : m_prixJournaliers) {
+        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
+            resultat = new PrixJournalier(compteur);
+            break;
+        }
+    }
+    return resultat;
 }
 
 
-int main (){
-    string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
-    
-    BourseVector B(filepath);
-    double k, j;
-    Date d(24,1,2010);
-    Date d1(4,1,2010);
-    int i = 0;
-    /*cout << "Actions disponibles pour le " << d << ":" << endl;
-    for (auto ad : adispo) {
-        i++;
-        cout<<"Action "<<i<<" : "<<ad<<endl;
-    }*/
-    
-    vector<string> pjdate = B.getActionsDisponiblesParDate(d);
-    cout << "Prix journaliers pour le " << d << ":" << endl;
-    for (auto pj : pjdate) {
-        if (pj=="Match not found"){
-            cout<< pj.first << " : " << pj.second << endl;
-        }else {
-            i++;
-            cout <<"Action "<<i<<" : "<< pj.first << " : " << pj.second << endl;
+double BourseVector::get_dernier_prix_action(string nom) const{
+    double prixaction=0.0;
+    for (auto compteur : m_prixJournaliers) {
+        if (compteur.get_nom_action()==nom) {
+            prixaction=compteur.get_prix();
         }
     }
+    return prixaction;
+}
 
-    vector<pair<string, double>> pjdate1 = B.getPrixJournaliersParDate(d1);
-    cout << "Prix journaliers pour le " << d1 << ":" << endl;
-    for (auto pj : pjdate1) {
-        if (pj==nulpair){
-            cout<< pj.first << " : " << pj.second << endl;
+
+vector<string> BourseVector::getActionsDisponiblesParDate(Date& d) const{
+    vector<string> actionsDisponibles;
+    bool found = false;
+    for(auto compteur : m_prixJournaliers){
+        if(compteur.get_date()== d){
+            actionsDisponibles.push_back(compteur.get_nom_action());
+            found=true;
+        }
+    }
+    if (!found){
+        actionsDisponibles.push_back("Match not found");
+    }
+    return actionsDisponibles;
+}
+
+double BourseVector::get_prix_action(const Date d, string nom){
+    double prix;
+    bool found = false;
+    for (auto compteur : m_prixJournaliers) {
+        if (compteur.get_date() == d && compteur.get_nom_action()==nom) {
+            prix=compteur.get_prix();
+            found=true;
+        }
+    }
+    if(!found){ 
+        prix=0.0; 
+    }
+    return prix;
+}
+
+int main (){
+    string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
+    BourseVector B(filepath);
+    double k, j;
+    Date d(24,1,2011);
+    Date d1(4,1,2010);
+    int i = 0;
+    vector<string> pjdate = B.getActionsDisponiblesParDate(d);
+    cout << "Prix journaliers pour le " << d << ":" << endl;
+    for (string pj : pjdate) {
+        double pr=B.get_prix_action(d, pj);
+        if (pj=="Match not found"){
+            cout<< pj << " : " << pr << endl;
         }else {
             i++;
-            cout <<"Action "<<i<<" : "<< pj.first << " : " << pj.second << endl;
+            cout <<"Action "<<i<<" : "<< pj<< " : " << pr << endl;
+        }
+    }
+    cout<<'\n'<<endl;
+    cout<<'\n'<<endl;
+    int l=0;
+    vector<string> pjdate1 = B.getActionsDisponiblesParDate(d1);
+    cout << "Prix journaliers pour le " << d1 << ":" << endl;
+    for (string pj1 : pjdate) {
+        double pr1=B.get_prix_action(d1, pj1);
+        if (pj1=="Match not found"){
+            cout<< pj1 << " : " << pr1 << endl;
+        }else {
+            l++;
+            cout <<"Action "<<l<<" : "<< pj1 << " : " << pr1 << endl;
         }
     }
     Date d2(1,1,2015);
