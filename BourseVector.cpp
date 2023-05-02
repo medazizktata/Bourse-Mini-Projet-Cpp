@@ -1,4 +1,3 @@
-#define _GLIBCXX_USE_CXX11_ABI 1
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -136,8 +135,27 @@ double BourseVector::get_prix_action(const Date d, string nom){
     return prix;
 }
 
+string get_name_file(string &chemin){
+    size_t lastSlashPos = chemin.find_last_of("/\\");
+    if (lastSlashPos != string::npos) {
+        return chemin.substr(lastSlashPos + 1);
+    }
+    return chemin;
+}
+void loading_screen(string s) {
+    cout << "Lecture du fichier "<<get_name_file(s);
+    cout.flush(); 
+    for (int i = 0; i < 3; i++) {
+        cout << ".";
+        cout.flush();
+    }
+    cout << endl;
+}
+
+
 int main (){
     string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
+    loading_screen(filepath);
     BourseVector B(filepath);
     double k, j, l;
     /*Date d(28,02,2014); //490
@@ -218,11 +236,9 @@ int main (){
     B.acces_archive(d3,10,"IRM"); 
     Date d4(5,3,2014);
     B.acces_archive(d4,10,"KKKK"); //Not found
-    
-    
-    k=B.get_prix_action(d2, "IR");//Not found
+
     j=B.get_prix_action(d3, "IRM"); //06/03/2013;IRM;34.810006
-    l=B.get_prix_action(d4, "KKKK");//Not found
+
     cout<<"Recherche de l'action IR a la date "<<d2<<" : "<<k<<endl;
     cout<<'\n';
     cout<<"Recherche de l'action IRM a la date "<<d3<<" : "<<j<<endl;

@@ -3,8 +3,9 @@
 #include <iostream>
 #include <vector>
 #include "PrixJournalier.h"
+#include "Bourse.h"
 using namespace std;
-class BourseVector {
+class BourseVector : public Bourse {
 
 private:
     vector<PrixJournalier> m_prixJournaliers;

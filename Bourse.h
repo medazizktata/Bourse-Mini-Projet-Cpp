@@ -14,12 +14,13 @@ class Bourse{
             auj=j;
         }
         virtual ~Bourse(){}
-        vector<PrixJournalier> get_bourse();
-        virtual vector<string> getActionsDisponiblesParDate(const Date& d) const =0;
-        vector<pair<string, double>> getPrixJournaliersParDate(const Date& d) const;
-        virtual double* get_prix_action(Date d, string nom) const = 0;
-        double* get_prix_action_today(string nom){
-            return get_prix_action(auj, nom);
+        virtual double get_prix_action(Date d, string nom)=0;
+        virtual double get_dernier_prix_action(string nom) const=0;
+        virtual PrixJournalier* getprixjournalier(Date d, string nom) const = 0;
+        PrixJournalier* get_prix_action_auj(string nom){
+            return getprixjournalier(auj, nom);
         }
-        void acces_archive(const Date d, int i, const string nom);
+        virtual void acces_archive(const Date d, int n, const string nom)=0;
 };
+
+    
