@@ -5,6 +5,8 @@
 #include <vector>
 #include "Trader.h"
 #include "PrixJournalier.h"
+#include "Titre.h"
+
 
 
 using namespace std;
@@ -12,21 +14,19 @@ using namespace std;
 class Portefeuille
 {
 private:
-
-    double Solde_Initial,Montant_Restant,Solde_Totale;
-    vector<string> actionspossed;
-
+    double solde_initial, montant_restant, solde_total;
+    vector<Titre> actionspossed;
 public:
-    Portefeuille(double Soldedebut);
+    Portefeuille(double Soldedebut, vector<Titre> act={});
     ~Portefeuille();
-    double Get_Solde_Initial() const;
-    double Get_Montant_Restant();
-    double Get_Solde_Totale();
-    vector<string> get_actions_possede();
-    void SetMontantRestant(double m);
-    void SetSoldeTotale(double m);
-    void Acheteraction(string nom,double prix);
-    void Vendreraction(string nom,double prix);
+    double Get_solde_initial() const;
+    double Get_montant_restant();
+    double Get_solde_total();
+    vector<Titre> get_actions_possede();
+    void Setmontantrestant(double m);
+    void Setsoldetotale(double m);
+    void Acheteraction(Titre t, double prix);
+    void Vendreaction(Titre t, double prix);
 };
 
 

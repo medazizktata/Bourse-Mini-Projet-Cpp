@@ -7,7 +7,6 @@
 #include "Transaction.h"
 using namespace std;
 class Trader {
-
     public:
     Trader();
     Transaction choisir_transaction(const Bourse& B, const Portefeuille& P);
