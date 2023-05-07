@@ -14,17 +14,13 @@ using namespace std;
 class Portefeuille
 {
 private:
-    double solde_initial, montant_restant, solde_total;
+    double solde;
     vector<Titre> actionspossed;
 public:
     Portefeuille(double Soldedebut, vector<Titre> act={});
     ~Portefeuille();
-    double Get_solde_initial() const;
-    double Get_montant_restant();
-    double Get_solde_total();
+    double Get_solde() const;
     vector<Titre> get_actions_possede();
-    void Setmontantrestant(double m);
-    void Setsoldetotale(double m);
     void Acheteraction(Titre t, double prix);
     void Vendreaction(Titre t, double prix);
 };

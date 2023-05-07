@@ -6,49 +6,62 @@
 #include "Titre.h"
 using namespace std;
 
-Portefeuille::Portefeuille(double soldedebut, vector<Titre> act={}){
-    solde_initial=soldedebut;
-    actionspossed=act;
+Portefeuille::Portefeuille(double soldedebut, vector<Titre> act = {})
+{
+    solde = soldedebut;
+    actionspossed = act;
 }
-double Portefeuille::Get_solde_initial() const {
-    return solde_initial;
+double Portefeuille::Get_solde() const
+{
+    return solde;
 }
-double Portefeuille::Get_montant_restant(){
-    return montant_restant;
-}
-double Portefeuille::Get_solde_total(){
-    return solde_total;
-}
-vector<Titre> Portefeuille::get_actions_possede(){
+
+vector<Titre> Portefeuille::get_actions_possede()
+{
     return actionspossed;
 }
-void Portefeuille::Setmontantrestant(double m){
-    montant_restant=m;
-}
-void Portefeuille::Setsoldetotale(double m){
-    solde_total=m;
-}
-void Portefeuille::Acheteraction(string nom,double prix){
-    if (solde_initial<prix) {
-        cout<<"Solde insuffisant pour effectuer cette transaction"<<endl;
+
+void Portefeuille::Acheteraction(Titre t, double prix)
+{
+    int i = 0;
+    if (solde < prix * t.getQte())
+    {
+        cout << "Solde insuffisant pour effectuer cette transaction" << endl;
     }
-    else {
-        actionspossed.push_back(nom);
-        solde_initial-=prix;
+    else
+    {
+        while (i < actionspossed.size() && actionspossed[i].getNomAction() != t.getNomAction())
+        {
+            i++;
+        }
+        if (i < actionspossed.size())
+        {
+            actionspossed[i].ajouterQte(t.getQte());
+        }
+        else
+        {
+            actionspossed.push_back(t);
+        }
+        solde -= prix * t.getQte();
     }
 }
-void Portefeuille::Vendreaction(string nom,double prix){
-    int i=0;
-    while(i<actionspossed.size() && actionspossed[i]!=nom){
+void Portefeuille::Vendreaction(Titre t, double prix)
+{
+    int i = 0;
+    while (i < actionspossed.size() && actionspossed[i].getNomAction() != t.getNomAction())
+    {
         i++;
     }
-    if (i<actionspossed.size()){
-        actionspossed.erase(actionspossed.begin()+i);
-        solde_initial-=prix;
-    } else {
-        cout<<"Action introuvable"<<endl;
+    if ((i < actionspossed.size())){
+        if(actionspossed[i].getQte()==t.getQte()){
+            actionspossed.erase(actionspossed.begin() + i);
+        }
+        else {
+            actionspossed[i].retirerQte(t.getQte());
+        }
+        solde += prix * t.getQte();
     }
-    
-    
-    
+    else {
+        cout<<"Action echouée"<<endl;
+    }
 }

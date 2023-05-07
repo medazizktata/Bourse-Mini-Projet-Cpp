@@ -29,6 +29,6 @@ ostream& operator<<(ostream& os,const Titre& t){
     return os;
 }
 bool operator==(const Titre& t1,const Titre& t2){
-    return (t2.nom_action==t1.nom_action && t1.qte==t2.qte );
+    return (t2.nom_action==t1.nom_action && t1.qte==t2.qte);
 }
 Titre::~Titre(){}
