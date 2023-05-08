@@ -3,13 +3,24 @@
 #include "Transaction.h"
 using namespace std;
 
-Transaction::Transaction(TypeTransaction t,string act){
-    type=t;
-    action=act;
+Transaction::Transaction(TypeTransaction t, Titre act)
+{
+    type = t;
+    actionq = act;
 }
-TypeTransaction Transaction:: GetType(){
+TypeTransaction Transaction::GetType()
+{
     return type;
 }
-string Transaction::GetNomAction(){
-    return action;
+Titre Transaction::GetNomAction()
+{
+    return actionq;
+}
+void Transaction::SetType(TypeTransaction t)
+{
+    type = t;
+}
+void Transaction::SetNomAction(string nom)
+{
+    actionq = nom;
 }

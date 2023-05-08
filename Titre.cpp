@@ -17,6 +17,10 @@ string Titre::getNomAction() const{
 double Titre::getQte() const{
     return qte;
 }
+void Titre::setNomAction(string nom){
+    nom_action=nom;
+}
+
 void Titre::ajouterQte(double q){
     qte+=q;
 }

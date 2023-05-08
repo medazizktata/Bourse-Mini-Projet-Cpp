@@ -20,7 +20,7 @@ public:
     Portefeuille(double Soldedebut, vector<Titre> act={});
     ~Portefeuille();
     double Get_solde() const;
-    vector<Titre> get_actions_possede();
+    vector<Titre> get_actions_possede() const;
     void Acheteraction(Titre t, double prix);
     void Vendreaction(Titre t, double prix);
 };

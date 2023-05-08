@@ -16,7 +16,7 @@ double Portefeuille::Get_solde() const
     return solde;
 }
 
-vector<Titre> Portefeuille::get_actions_possede()
+vector<Titre> Portefeuille::get_actions_possede() const
 {
     return actionspossed;
 }
@@ -62,6 +62,6 @@ void Portefeuille::Vendreaction(Titre t, double prix)
         solde += prix * t.getQte();
     }
     else {
-        cout<<"Action echouée"<<endl;
+        cout<<"Transaction echouée"<<endl;
     }
 }
