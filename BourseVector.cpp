@@ -5,6 +5,7 @@
 #include <chrono>
 #include <thread>
 #include "BourseVector.h"
+#include "Bourse.h"
 #include "PersistancePrixJournaliers.h"
 #include "PrixJournalier.h"
 

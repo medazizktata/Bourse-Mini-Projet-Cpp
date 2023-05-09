@@ -1,19 +1,26 @@
+#include <iostream>
+#include <string>
 #include "Transaction.h"
+using namespace std;
 
-using namespace std ;
-
-Transaction ::Transaction(TypeTransaction ty,string acti)
+Transaction::Transaction(TypeTransaction t, Titre act)
 {
-    Type=ty;
-    Action=acti;
-
+    type = t;
+    actionq = act;
 }
-TypeTransaction Transaction ::GetType()
+TypeTransaction Transaction::GetType()
 {
-    return Type;
+    return type;
 }
-string Transaction ::GetNomAction()
+Titre Transaction::GetNomAction()
 {
-    return Action;
+    return actionq;
 }
-
+void Transaction::SetType(TypeTransaction t)
+{
+    type = t;
+}
+void Transaction::SetNomAction(string nom)
+{
+    actionq = nom;
+}
