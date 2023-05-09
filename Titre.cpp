@@ -20,7 +20,9 @@ double Titre::getQte() const{
 void Titre::setNomAction(string nom){
     nom_action=nom;
 }
-
+void Titre::setQte(double q){
+    qte=q;
+}
 void Titre::ajouterQte(double q){
     qte+=q;
 }

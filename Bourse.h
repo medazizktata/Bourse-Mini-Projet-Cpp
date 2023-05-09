@@ -18,15 +18,14 @@ public:
         auj = j;
     }
     virtual ~Bourse() {}
-    virtual double get_prix_action(Date d, string nom) = 0;
+    virtual double get_prix_action(Date d, string nom) const = 0;
     virtual double get_dernier_prix_action(string nom) const = 0;
     virtual PrixJournalier *getprixjournalier(Date d, string nom) const = 0;
-    PrixJournalier *get_prix_action_auj(string nom)
+    PrixJournalier *get_prix_action_auj(string nom) const
     {
         return getprixjournalier(auj, nom);
     }
     virtual void acces_archive(const Date d, int n, const string nom) = 0;
 
     virtual vector<string> getActionsDisponiblesParDate(Date &d) const = 0;
-    virtual bool estBourseFerme(Bourse b, Date d)=0; // a corriger 
 };

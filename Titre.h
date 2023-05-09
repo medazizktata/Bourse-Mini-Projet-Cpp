@@ -15,6 +15,7 @@ public:
     Titre(string n="",double q=0);
     string getNomAction() const;
     double getQte() const;
+    void setQte(double q);
     void setNomAction(string nom);
     void ajouterQte(double q);
     void retirerQte(double q);
