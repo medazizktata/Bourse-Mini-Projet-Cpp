@@ -26,7 +26,7 @@ class PrixJournalier {
         friend istream& operator>>(istream& is, PrixJournalier& pj);
 };
 PrixJournalier::PrixJournalier(){
-    Date d(1,1,2000);
+    Date d(4,1,2010);
     nom_action="XXX";
     prix=0;
     date= d;

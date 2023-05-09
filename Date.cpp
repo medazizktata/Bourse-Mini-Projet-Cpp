@@ -12,9 +12,9 @@ Date::Date(int j, int m, int a){
     annee=a;
 }
 Date::Date(){
-    jour=0;
-    mois=0;
-    annee=2000;
+    jour=4;
+    mois=1;
+    annee=2010;
 }
 Date::~Date(){}
 int Date::get_jour(){
@@ -34,7 +34,7 @@ bool Date::cntrl_mois(int m) const{
     return (m<=12 && m>0);
 }
 bool Date::cntrl_annee(int a) const{
-    return (a<=2023 && a>2000);
+    return (a<=2016 && a>2010);
 }
 bool Date::cntrl_format() const{
     return ((cntrl_jour(jour)) && (cntrl_mois(mois)) && (cntrl_annee(annee)));
@@ -211,7 +211,7 @@ void Date::set_mois(int nv_mois){
     }
 }
 void Date::set_annee(int nv_annee){
-    if(cntrl_annee(nv_annee)){
+    if(cntrl_annee(nv_annee)){          
         annee=nv_annee;
     }
 }
