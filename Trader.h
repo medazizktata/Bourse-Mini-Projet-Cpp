@@ -1,21 +1,29 @@
 #include <iostream>
 #include <string>
-#include <vector>
-
+#include "Bourse.h"
+#include "Portefeuille.h"
+#include "Transaction.h"
 using namespace std;
-class Trader {
-    public:
+class Trader
+{
+public:
     Trader();
-    void lancer_simulation(Date d, int n, double p);
-    virtual int prendre_decision()=0;
-    virtual void acceder_a_archive_des_prix()=0;
-    private:
-    int id;
+    virtual Transaction choisir_transaction(const Bourse &B, const Portefeuille &P) = 0;
+    virtual ~Trader()
+    {
+        cout << "Trader detruit" << endl;
+    }
+    string get_nom_trader();
+
+private:
+    string nom_tr;
 };
-class Humain : public Trader {
-    public:
-    Humain();
-    void lancer_simulation(Date d, int n, double p);
-    int prendre_decision();
-    void acceder_a_archive_des_prix(Date d, int n, string nom); 
+
+class Trader_aleatoire : public Trader {
+    public: 
+    Transaction choisir_transaction(const Bourse &B, const Portefeuille &P);
+    ~Trader_aleatoire()
+    {
+        cout << "Trader Aleatoire detruit" << endl;
+    }
 };

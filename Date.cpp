@@ -410,4 +410,8 @@ void Date::saisie_date(){
         cout<<"Format Valide"<<endl;
     }
 }
+int main (){
+    Date d; //constructeur par defaut
+    Date d1(5,5,2013);//constructeur normal
+}
 

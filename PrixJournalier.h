@@ -19,6 +19,9 @@ class PrixJournalier {
         string get_nom_action();
         double get_prix();
         Date get_date();
+        void set_date(Date d);
+        void set_nom_action(string nom);
+        void set_prix(double p);
         friend ostream& operator<<(ostream& os, const PrixJournalier& pj);
         friend istream& operator>>(istream& is, PrixJournalier& pj);
 };
@@ -42,6 +45,15 @@ double PrixJournalier::get_prix(){
 }
 Date PrixJournalier::get_date(){
     return date;
+}
+void PrixJournalier::set_date(Date d){
+    date=d;
+}
+void PrixJournalier::set_nom_action(string nom){
+    nom_action=nom;
+}
+void PrixJournalier::set_prix(double p){
+    prix=p;
 }
 ostream& operator<<(ostream& os, const PrixJournalier& pj){
     int dec = 0;

@@ -3,19 +3,22 @@
 #include <iostream>
 #include <vector>
 #include "PrixJournalier.h"
+#include "Bourse.h"
 using namespace std;
-class BourseVector {
+class BourseVector : public Bourse {
 
 private:
     vector<PrixJournalier> m_prixJournaliers;
 
 public:
     BourseVector(const string& filepath);
+    ~BourseVector();
     vector<PrixJournalier> get_bourse();
-    vector<string> getActionsDisponiblesParDate(const Date& d) const ;
-    vector<pair<string, double>> getPrixJournaliersParDate(const Date& d) const;
-    double get_prix_action(const Date d, string nom);
     void acces_archive(const Date d, int i, const string nom);
+    PrixJournalier* getprixjournalier(Date d, string nom) const;
+    double get_dernier_prix_action(string nom) const;
+    vector<string> getActionsDisponiblesParDate(Date& d) const override;
+    double get_prix_action(Date d, string nom);
 };
 
 #endif // BOURSEVECTOR_H_INCLUDED
