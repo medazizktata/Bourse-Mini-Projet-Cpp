@@ -8,7 +8,7 @@ protected:
     Date auj;
 
 public:
-    Bourse(){}
+    Bourse() {}
     Date get_auj() const
     {
         return auj;
