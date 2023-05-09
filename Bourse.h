@@ -13,7 +13,7 @@ public:
     {
         return auj;
     }
-    Date set_auj(Date j)
+    void set_auj(Date j)
     {
         auj = j;
     }

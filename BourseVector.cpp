@@ -121,7 +121,7 @@ vector<string> BourseVector::getActionsDisponiblesParDate(Date& d) const{
     return actionsDisponibles;
 }
 
-double BourseVector::get_prix_action(const Date d, string nom){
+double BourseVector::get_prix_action(const Date d, string nom) const{
     double prix;
     bool found = false;
     for (auto compteur : m_prixJournaliers) {
@@ -152,7 +152,6 @@ void loading_screen(string s) {
     }
     cout << endl;
 }
-
 
 int main (){
     string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";

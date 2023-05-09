@@ -18,7 +18,7 @@ public:
     PrixJournalier* getprixjournalier(Date d, string nom) const;
     double get_dernier_prix_action(string nom) const;
     vector<string> getActionsDisponiblesParDate(Date& d) const override;
-    double get_prix_action(Date d, string nom);
+    double get_prix_action(Date d, string nom) const;
 };
 
 #endif // BOURSEVECTOR_H_INCLUDED
