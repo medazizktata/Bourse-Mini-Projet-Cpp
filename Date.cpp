@@ -217,10 +217,7 @@ void Date::set_annee(int nv_annee){
 }
 
 
-Date incrementer(Date &d){
-    int jour=d.get_jour();
-    int mois=d.get_mois();
-    int annee=d.get_annee();
+Date Date::incrementer(){
     int fev=28;
     if (mois<8){
         if (mois%2==0){
@@ -286,17 +283,14 @@ Date incrementer(Date &d){
             }
         }
     }
-
+    Date d;
     d.set_jour(jour);
     d.set_mois(mois);
     d.set_annee(annee);
     return d;
 }
 
-Date decrementer(Date &d){
-    int jour=d.get_jour();
-    int mois=d.get_mois();
-    int annee=d.get_annee();
+Date Date::decrementer(){
     int fev=28;
     if (mois>1 && mois<8){
         if ((mois-1)%2==0){
@@ -362,7 +356,7 @@ Date decrementer(Date &d){
             }                   
         }
     }
-    
+    Date d;
     d.set_jour(jour);
     d.set_mois(mois);
     d.set_annee(annee);

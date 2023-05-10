@@ -12,7 +12,7 @@ TypeTransaction Transaction::GetType()
 {
     return type;
 }
-Titre Transaction::GetNomAction()
+Titre Transaction::GetTitre()
 {
     return actionq;
 }
@@ -20,7 +20,7 @@ void Transaction::SetType(TypeTransaction t)
 {
     type = t;
 }
-void Transaction::SetNomAction(string nom)
+void Transaction::SetTitre(string nom)
 {
     actionq = nom;
 }

@@ -22,8 +22,8 @@ class Date {
         void set_jour(int nv_jour);
         void set_mois(int nv_mois);
         void set_annee(int nv_annee);
-        Date incrementer(Date &d);
-        Date decrementer(Date &d);
+        Date incrementer();
+        Date decrementer();
         friend ostream& operator<<(ostream& os, const Date& d);
         friend istream& operator>>(istream& is, Date& d);
         bool operator<(const Date& d) const;

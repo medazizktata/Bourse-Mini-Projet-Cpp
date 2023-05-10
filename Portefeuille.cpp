@@ -27,6 +27,7 @@ void Portefeuille::Acheteraction(Titre t, double prix)
     if (solde < prix * t.getQte())
     {
         cout << "Solde insuffisant pour effectuer cette transaction" << endl;
+        cout << "Achat echoué" << endl;
     }
     else
     {
@@ -52,16 +53,36 @@ void Portefeuille::Vendreaction(Titre t, double prix)
     {
         i++;
     }
-    if ((i < actionspossed.size())){
-        if(actionspossed[i].getQte()==t.getQte()){
+    if ((i < actionspossed.size()))
+    {
+        if (actionspossed[i].getQte() == t.getQte())
+        {
             actionspossed.erase(actionspossed.begin() + i);
         }
-        else {
+        else
+        {
             actionspossed[i].retirerQte(t.getQte());
         }
         solde += prix * t.getQte();
     }
-    else {
-        cout<<"Transaction echouée"<<endl;
+    else
+    {
+        cout << "Vente echouée" << endl;
+    }
+}
+void Portefeuille::effectuerTransaction(Bourse &B, Transaction tt)
+{
+    Titre tl = tt.GetTitre();
+    if (tt.GetType() == ACHAT)
+    {
+        Acheteraction(tt.GetTitre(), B.get_prix_action_auj(tl.getNomAction())->get_prix());
+    }
+    else if (tt.GetType() == VENTE)
+    {
+        Vendreaction(tt.GetTitre(), B.get_prix_action_auj(tl.getNomAction())->get_prix());
+    }
+    else if (tt.GetType() == RIEN)
+    {
+        return;
     }
 }

@@ -16,9 +16,9 @@ private:
 public:
     Transaction(TypeTransaction t, Titre act);
     TypeTransaction GetType();
-    Titre GetNomAction();
+    Titre GetTitre();
     void SetType(TypeTransaction t);
-    void SetNomAction(string nom);
+    void SetTitre(string nom);
 };
 
 #endif // TRANSACTION_H_INCLUDED
