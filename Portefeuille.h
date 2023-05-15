@@ -16,6 +16,7 @@ private:
     vector<Titre> actionspossed;
 
 public:
+    Portefeuille(){}
     Portefeuille(double Soldedebut, vector<Titre> act);
     double Get_solde() const;
     vector<Titre> get_actions_possede() const;

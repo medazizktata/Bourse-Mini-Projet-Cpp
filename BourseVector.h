@@ -2,6 +2,7 @@
 #define BOURSEVECTOR_H_INCLUDED
 #include <iostream>
 #include <vector>
+#include <string>
 #include "PrixJournalier.h"
 #include "Bourse.h"
 using namespace std;
@@ -17,7 +18,7 @@ public:
     vector<PrixJournalier> get_bourse();
     void acces_archive(const Date d, int i, const string nom);
     PrixJournalier *getprixjournalier(Date d, string nom) const;
-    double get_dernier_prix_action(string nom) const;
+    double get_dernier_prix_action(string nom) const ;
     vector<string> getActionsDisponiblesParDate(Date &d) const override;
     double get_prix_action(Date d, string nom) const;
 };

@@ -1,6 +1,7 @@
 #ifndef BOURSE_H_INCLUDED
 #define BOURSE_H_INCLUDED
 #include <iostream>
+#include <string>
 #include "Date.h"
 #include "PrixJournalier.h"
 using namespace std;

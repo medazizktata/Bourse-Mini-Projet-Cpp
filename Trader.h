@@ -1,7 +1,11 @@
 #ifndef TRADER_H_INCLUDED
 #define TRADER_H_INCLUDED
 #include <iostream>
+#include <typeinfo>
 #include <string>
+#include "BourseVector.h"
+#include "BourseSet.h"
+#include "BourseMultimap.h"
 #include "Bourse.h"
 #include "Portefeuille.h"
 #include "Transaction.h"
