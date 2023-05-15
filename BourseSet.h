@@ -1,5 +1,5 @@
-#ifndef BOURSEVECTOR_H_INCLUDED
-#define BOURSEVECTOR_H_INCLUDED
+#ifndef BOURSESET_H_INCLUDED
+#define BOURSESET_H_INCLUDED
 #include <iostream>
 #include <vector>
 #include<set>
@@ -23,4 +23,4 @@ public:
     double get_prix_action(Date d, string nom) const;
 };
 
-#endif // BOURSEVECTOR_H_INCLUDED
+#endif // BOURSESET_H_INCLUDED

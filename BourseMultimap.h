@@ -1,5 +1,5 @@
-#ifndef BOURSEVECTOR_H_INCLUDED
-#define BOURSEVECTOR_H_INCLUDED
+#ifndef BOURSEMULTIMAP_H_INCLUDED
+#define BOURSEMULTIMAP_H_INCLUDED
 #include <iostream>
 #include <vector>
 #include<map>
@@ -23,4 +23,4 @@ public:
     double get_prix_action(Date d, string nom) const;
 };
 
-#endif // BOURSEVECTOR_H_INCLUDED
+#endif // BOURSEMULTIMAP_H_INCLUDED
