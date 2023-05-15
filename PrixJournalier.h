@@ -4,26 +4,31 @@
 #include <string>
 #include <iomanip>
 #include "Date.h"
-#include "Date.cpp"
 using namespace std;
-class PrixJournalier {
-    private:
-        string nom_action;
-        double prix;
-        Date date;
+class PrixJournalier
+{
+private:
+    string nom_action;
+    double prix;
+    Date date;
 
-    public:
-        PrixJournalier();
-        ~PrixJournalier();
-        PrixJournalier(Date d, string na, double p);
-        string get_nom_action();
-        double get_prix();
-        Date get_date();
-        void set_date(Date d);
-        void set_nom_action(string nom);
-        void set_prix(double p);
-        friend ostream& operator<<(ostream& os, const PrixJournalier& pj);
-        friend istream& operator>>(istream& is, PrixJournalier& pj);
+public:
+    PrixJournalier();
+    ~PrixJournalier();
+    PrixJournalier(Date d, string na, double p);
+    string get_nom_action() const;
+    double get_prix() const;
+    Date get_date() const;
+    void set_date(Date d);
+    void set_nom_action(string nom);
+    void set_prix(double p);
+    friend ostream &operator<<(ostream &os, const PrixJournalier &pj);
+    friend istream &operator>>(istream &is, PrixJournalier &pj);
+
+    bool operator<(const PrixJournalier &pj) const
+    {
+        return date < pj.get_date();
+    }
 };
 PrixJournalier::PrixJournalier(){
     Date d(4,1,2010);
