@@ -81,7 +81,8 @@
     "iomanip": "cpp",
     "chrono": "cpp",
     "ratio": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "map": "cpp"
   },
   "C_Cpp_Runner.showCompilationTime": false
 }
