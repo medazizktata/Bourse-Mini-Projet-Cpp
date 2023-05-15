@@ -1,6 +1,5 @@
 #ifndef TITRE_H_INCLUDED
 #define TITRE_H_INCLUDED
-
 #include <iostream>
 #include <string>
 #include <vector>
