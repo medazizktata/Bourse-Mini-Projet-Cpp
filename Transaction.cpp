@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Transaction.h"
+#include "Titre.h"
 using namespace std;
 
 Transaction::Transaction(TypeTransaction t, Titre act)

@@ -1,3 +1,5 @@
+#ifndef TRADER_H_INCLUDED
+#define TRADER_H_INCLUDED
 #include <iostream>
 #include <string>
 #include "Bourse.h"
@@ -27,3 +29,4 @@ class Trader_aleatoire : public Trader {
         cout << "Trader Aleatoire detruit" << endl;
     }
 };
+#endif

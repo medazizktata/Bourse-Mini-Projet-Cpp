@@ -23,7 +23,7 @@ public:
     {
         return portefeuilleTrader;
     }
-    static map<string, long> lancer_simulation(Bourse &B, Trader &T, Date date_deb, Date date_fin, double solde)
+    static map<string, long> lancer_simulation(Bourse &B, Trader &T, Date date_deb, Date date_fin, double solde=0)
     {
         map<string, long> stats, prix_vente;
         Titre nth;
@@ -54,7 +54,7 @@ public:
                         prix_vente[tr.GetTitre().getNomAction()] = B.get_prix_action_auj(tr.GetTitre().getNomAction())->get_prix();
                     }
                     else
-                        (tr.GetType() == RIEN)
+                        if (tr.GetType() == RIEN)
                         {
                             nb_rien++;
                         }
@@ -66,7 +66,7 @@ public:
                 } while (tr.GetType() != RIEN && i < 100);
             }
         }
-        dateact = dateact.incrementer();
+        dateact.incrementer();
         B.set_auj(dateact);
         auto end = high_resolution_clock::now();
         auto duree = duration_cast<microseconds>(end - start);
@@ -99,17 +99,19 @@ public:
     }
 };
 
-int main() {
-    BourseVector B();
+int main()
+{
+    string filepath = "C://Users//zizou//OneDrive//Documents//GitHub//Bourse-Mini-Projet-C--//prices_simple.csv";
+    BourseVector B(filepath);
     Trader_aleatoire T1;
-    Date dateDebut(1,5,2014);
-    Date datefin(30,11,2014);
-
+    Portefeuille P1;
+    int solde;
+    Date dateDebut(1, 5, 2014);
+    Date datefin(30, 11, 2014);
+    auto stats = Simulation::lancer_simulation(B, T1, dateDebut, datefin, solde);
+    for (auto it : stats)
+    {
+        cout << it.first << "\t" << it.second << endl;
+    }
     return 0;
 }
-auto stats = Simulation::executer(*bourse,*trader,dateDebut,dateFin,solde);
-
-for(auto it:stats){
-    cout<<it.first<<"\t"<<it.second<<endl;
-    }
-*/

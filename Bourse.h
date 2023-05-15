@@ -1,3 +1,5 @@
+#ifndef BOURSE_H_INCLUDED
+#define BOURSE_H_INCLUDED
 #include <iostream>
 #include "Date.h"
 #include "PrixJournalier.h"
@@ -29,3 +31,4 @@ public:
 
     virtual vector<string> getActionsDisponiblesParDate(Date &d) const = 0;
 };
+#endif

@@ -1,12 +1,10 @@
-#ifndef PORTFEUIL_H_INCLUDED
-#define PORTFEUIL_H_INCLUDED
+#ifndef PORTFEUILLE_H_INCLUDED
+#define PORTFEUILLE_H_INCLUDED
 #include <string>
 #include <vector>
 #include "Trader.h"
 #include "PrixJournalier.h"
 #include "Titre.h"
-
-
 
 using namespace std;
 
@@ -27,4 +25,4 @@ public:
 };
 
 
-#endif // PORTFEUIL_H_INCLUDED
+#endif // PORTFEUILLE_H_INCLUDED

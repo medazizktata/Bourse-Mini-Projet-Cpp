@@ -13,7 +13,7 @@ using namespace std;
 BourseVector::BourseVector(const string& filepath){
     m_prixJournaliers = PersistancePrixJournaliers::lirePrixJournaliersDUnFichier(filepath);
 }
-BourseVector::~BourseVector(){cout<<"Bourse a ete detruite"<<endl;}
+BourseVector::~BourseVector(){cout<<"Bourse de type Vecteur a ete detruite"<<endl;}
 vector<PrixJournalier> BourseVector::get_bourse(){
     return m_prixJournaliers;
 }
@@ -200,6 +200,9 @@ int main (){
             cout <<"Action "<<l<<" : "<< pj1 << " : " << pr1 << endl;
         }
     }*/
+
+
+    
     PrixJournalier* dp;
     Date dtp(21,03,2012);
     dp=B.getprixjournalier(dtp, "DLTR");//94.730003
@@ -207,7 +210,7 @@ int main (){
     
     
     PrixJournalier* dp1;
-    Date dtp1(06,07,2010);
+    Date dtp1(06,7,2010);
     dp1=B.getprixjournalier(dtp1, "DE");//54.630001
     cout<<"Prix de l'action DE a la date "<<dtp1<<" est : "<<*dp1<< endl;
 
