@@ -29,12 +29,16 @@ Classe Trader : Cette classe abstraite représente un trader qui prend des déci
 Classe Trader_aleatoire : Cette classe dérive de la classe Trader et implémente la méthode de choix de transaction de manière aléatoire
 
 Classe Simulation : Cette classe permet de simuler le fonctionnement d'une bourse en utilisant des traders et un portefeuille. Elle initialise les différentes instances nécessaires, exécute les transactions en fonction des décisions des traders, et affiche les résultats de la simulation.
+
+
 Comment utiliser le projet
+
 Assurez-vous d'avoir installé un compilateur C++ compatible sur votre système.
 Clonez ce dépôt GitHub sur votre machine locale.
 Compilez le code source à l'aide de votre compilateur C++ en exécutant la commande g++ main.cpp -o simulation.
 Exécutez le programme en utilisant la commande ./simulation.
 Suivez les instructions affichées pour effectuer des transactions et observer les résultats de la simulation.
+
 Contributions
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez ajouter de nouvelles fonctionnalités, corriger des bogues ou améliorer la documentation, n'hésitez pas à ouvrir une demande de pull. Veuillez vous assurer de suivre les meilleures pratiques de développement et d'ajouter des tests appropriés lorsque cela est nécessaire.
 
