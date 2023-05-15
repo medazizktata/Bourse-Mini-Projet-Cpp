@@ -35,9 +35,12 @@ Comment utiliser le projet
 
 Assurez-vous d'avoir installé un compilateur C++ compatible sur votre système.
 Clonez ce dépôt GitHub sur votre machine locale.
-Compilez le code source à l'aide de votre compilateur C++ en exécutant la commande g++ main.cpp -o simulation.
-Exécutez le programme en utilisant la commande ./simulation.
+Compilez le code source à l'aide de votre compilateur C++ en exécutant la commande g++ main.cpp -o simulation_bourse.
+Exécutez le programme en utilisant la commande ./simulation_bourse.
 Suivez les instructions affichées pour effectuer des transactions et observer les résultats de la simulation.
+NB: Le projet est divisé en deux versions : 
+Version 1 partagée sur GITHUB oû chaque classe est séparée dans un fichier, et un main.cpp qui englobe tout (Cette version peut ne pas compiler le code)
+La version 2 consiste de deux fichier : un header et un cpp, cette version est complète fonctionnelle et accompagnée d'un menu pour faciliter la naviagtion.
 
 Contributions
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez ajouter de nouvelles fonctionnalités, corriger des bogues ou améliorer la documentation, n'hésitez pas à ouvrir une demande de pull. Veuillez vous assurer de suivre les meilleures pratiques de développement et d'ajouter des tests appropriés lorsque cela est nécessaire.
